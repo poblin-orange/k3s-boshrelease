@@ -9,5 +9,5 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 export HOME=/var/vcap
 
 
-cp ${BOSH_COMPILE_TARGET}/k3s/k3s ${BOSH_INSTALL_TARGET}/rke
+cp ${BOSH_COMPILE_TARGET}/k3s/k3s ${BOSH_INSTALL_TARGET}/k3s
 chmod +x ${BOSH_INSTALL_TARGET}/k3s
