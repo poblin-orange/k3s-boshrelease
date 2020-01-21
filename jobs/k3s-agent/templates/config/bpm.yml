@@ -1,16 +1,19 @@
 ---
 processes:
 - name: k3s-agent
-  executable: /var/vcap/packages/k3s-agent/bin/k3s-agent
-  args: []
+  executable: /var/vcap/packages/k3s/k3s
+  args:
+  - agent
+  - --data-dir /var/vcap/store/k3s-agent
+  - --private-registry /var/vcap/packages/k3s-images
   ephemeral_disk: true
-  persistent_disk: true 
-  env:
-   TOKEN: <%= p("k3s.token") %>
+  persistent_disk: true
+  limits:
+    open_files: 100000
+   
+  env: []
   limits:
     memory: 1G
     open_files: 1024
-
-# examples/docs at:
-# - https://github.com/cloudfoundry-incubator/bpm-release/blob/master/jobs/test-server/templates/bpm.yml.erb
-# - https://github.com/cloudfoundry-incubator/bpm-release/tree/master/docs
+  capabilities:
+  - NET_BIND_SERVICE
