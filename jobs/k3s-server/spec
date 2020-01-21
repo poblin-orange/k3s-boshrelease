@@ -5,6 +5,11 @@ packages:
 - k3s
 templates:
   config/bpm.yml: config/bpm.yml
+  bin/pre-start.erb: bin/pre-start
+  bin/post-start.erb: bin/post-start  
+  bin/pre-stop.erb: bin/pre-stop
+  bin/post-deploy.erb: bin/post-deploy
+
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
@@ -14,7 +19,7 @@ provides:
 - name: k3s-server
   type: k3s-server
   properties:
-  - port
+  - token
 
 properties:
   port:
