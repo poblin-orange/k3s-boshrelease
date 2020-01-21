@@ -1,0 +1,6 @@
+---
+name: k3s
+packages: []
+templates:
+  ignoreme: ignoreme
+properties: {}

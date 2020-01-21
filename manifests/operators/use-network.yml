@@ -1,0 +1,3 @@
+- type: replace
+  path: /instance_groups/name=k3s/networks/name=default/name
+  value: ((network_name))
