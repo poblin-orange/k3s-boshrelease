@@ -5,8 +5,8 @@ processes:
   args: []
   ephemeral_disk: true
   persistent_disk: true 
-  env: []
-  #TOKEN: <%= p("token") %>
+  env:
+   TOKEN: <%= p("k3s.token") %>
   limits:
     memory: 1G
     open_files: 1024
