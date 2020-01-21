@@ -1,0 +1,5 @@
+check process k3s-agent
+  with pidfile /var/vcap/sys/run/bpm/k3s-agent/k3s-agent.pid
+  start program "/var/vcap/jobs/bpm/bin/bpm start k3s-agent"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop k3s-agent"
+  group vcap
