@@ -1,4 +1,5 @@
 ---
 name: k3s
 dependencies: []
-files: []
+files:
+- k3s/k3s 
