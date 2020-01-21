@@ -4,9 +4,9 @@ processes:
   executable: /var/vcap/packages/k3s-agent/bin/k3s-agent
   args: []
   ephemeral_disk: true
-  persistent_disk: false
-  env:
-    PORT: <%= p("port") %>
+  persistent_disk: true 
+  env: []
+  #TOKEN: <%= p("token") %>
   limits:
     memory: 1G
     open_files: 1024
