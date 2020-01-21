@@ -22,6 +22,6 @@ provides:
   - token
 
 properties:
-  port:
-    description: Bind to this port
+  token:
+    description: cluster token 
     default: 8080
