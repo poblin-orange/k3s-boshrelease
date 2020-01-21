@@ -1,4 +1,5 @@
 ---
 name: k3s-images
 dependencies: []
-files: []
+files:
+- k3s-images/k3s-airgap-images-amd64.tar
