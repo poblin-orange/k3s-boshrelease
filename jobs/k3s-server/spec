@@ -10,6 +10,7 @@ templates:
   bin/post-start.erb: bin/post-start  
   bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
+  bin/ctl.erb: bin/ctl
 
 
 # Documentation https://bosh.io/docs/links.html
