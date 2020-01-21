@@ -3,17 +3,19 @@ processes:
 - name: k3s-agent
   executable: /var/vcap/packages/k3s/k3s
   args:
+  - --debug
   - agent
-  - --data-dir /var/vcap/store/k3s-agent
-  - --private-registry /var/vcap/packages/k3s-images
+  - --data-dir=/var/vcap/store/k3s-agent
+  - --private-registry=/var/vcap/packages/k3s-images
   ephemeral_disk: true
   persistent_disk: true
   limits:
     open_files: 100000
-   
-  env: []
   limits:
     memory: 1G
     open_files: 1024
   capabilities:
   - NET_BIND_SERVICE
+#  additional_volumes:
+#  - path: /var/vcap/store/k3s-server
+#    writable: true
