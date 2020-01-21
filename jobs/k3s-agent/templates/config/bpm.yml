@@ -6,6 +6,9 @@ processes:
   - --debug
   - agent
   - --data-dir=/var/vcap/store/k3s-agent
+  - --default-local-storage-path=/var/vcap/store/k3s-agent/local-storage-path
+  - --private-registry=/var/vcap/packages/k3s-images/k3s-airgap-images-amd64.tar
+
   ephemeral_disk: true
   persistent_disk: true
   limits:
