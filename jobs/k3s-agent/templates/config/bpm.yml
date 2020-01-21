@@ -7,6 +7,21 @@ processes:
   - agent
   - --data-dir=/var/vcap/store/k3s-agent
   - --private-registry=/var/vcap/packages/k3s-images
+  - --data-dir=/var/vcap/store/k3s-server
+  - --private-registry=/var/vcap/packages/k3s-images
+  - --basic-auth-file=/var/vcap/store/k3s-server/cred/passwd
+  - --cert-dir=/var/vcap/store/k3s-server/tls/temporary-certs
+  - --client-ca-file=/var/vcap/store/k3s-server/tls/client-ca.crt
+  - --kubelet-certificate-authority=/var/vcap/store/k3s-server/tls/server-ca.crt
+  - --kubelet-client-certificate=/var/vcap/store/k3s-server/tls/client-kube-apiserver.crt
+  - --kubelet-client-key=/var/vcap/store/k3s-server/tls/client-kube-apiserver.key
+  - --proxy-client-cert-file=/var/vcap/store/k3s-server/tls/client-auth-proxy.crt
+  - --proxy-client-key-file=/var/vcap/store/k3s-server/tls/client-auth-proxy.key
+  - --requestheader-client-ca-file=/var/vcap/store/k3s-server/tls/request-header-ca.crt
+  - --service-account-key-file=/var/vcap/store/k3s-server/tls/service.key
+  - --service-account-signing-key-file=/var/vcap/store/k3s-server/tls/service.key 
+  - --tls-cert-file=/var/vcap/store/k3s-server/tls/serving-kube-apiserver.crt 
+  - --tls-private-key-file=/var/vcap/store/k3s-server/tls/serving-kube-apiserver.key
   ephemeral_disk: true
   persistent_disk: true
   limits:
@@ -19,3 +34,5 @@ processes:
 #  additional_volumes:
 #  - path: /var/vcap/store/k3s-server
 #    writable: true
+  unsafe:
+    privileged: true
