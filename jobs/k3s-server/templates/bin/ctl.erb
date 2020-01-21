@@ -7,5 +7,5 @@ export K3S_KUBECONFIG_OUTPUT=/var/vcap/store/k3s-server/kubeconfig.yml
  -v 4 \
 --data-dir=/var/vcap/store/k3s-server \
 --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
---private-registry=/var/vcap/packages/k3s-images/k3s-airgap-images-amd64.tar
+--private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml
 
