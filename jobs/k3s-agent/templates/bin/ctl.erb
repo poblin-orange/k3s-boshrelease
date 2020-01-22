@@ -1,0 +1,42 @@
+#!/bin/bash
+
+RUN_DIR=/var/vcap/sys/run/k3s-agent
+LOG_DIR=/var/vcap/sys/log/k3s-agent
+PIDFILE=${RUN_DIR}/pid
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    echo $$ > $PIDFILE
+	
+      
+    exec  /var/vcap/packages/k3s/k3s agent \
+    -v 4 \
+    --data-dir=/var/vcap/store/k3s-agent \
+    --default-local-storage-path=/var/vcap/store/k3s-agent/local-storage-path \
+    --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
+    --write-kubeconfig=/var/vcap/store/k3s-agent/kubeconfig.yml \
+    --write-kubeconfig-mode=755 \
+      >>  $LOG_DIR/k3s-agent.stdout.log \
+      2>> $LOG_DIR/k3s-agent.stderr.log
+
+    ;;
+
+  stop)
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}" ;;
+
+esac
+
+
+
+
+
