@@ -10,6 +10,11 @@ templates:
   bin/post-start.erb: bin/post-start  
   bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
+  bin/ctl.erb: bin/ctl
+  config/registries.yaml.erb: config/registries.yaml
+  config/registry.ca.erb: config/registry.ca
+  config/registry.cert.erb: config/registry.cert
+  config/registry.key.erb: config/registry.key 
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -23,10 +28,22 @@ consumes:
 provides:
 - name: k3s-agent
   type: k3s-agent
-  properties:
-  - port
 
 properties:
-  port:
-    description: Bind to this port
-    default: 8080
+  k3s.v:
+    description: "(logging) Number for the log level verbosity (default: 0)"
+    default: 0
+  k3s.bind-address value:
+    description: "(listener) k3s bind address (default: 0.0.0.0)"
+    default: 0.0.0.0
+  k3s.flannel-backend:                    
+    description: (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'
+    default: vxlan
+  k3s.token:
+    description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
+  k3s.node-label:
+    description: (agent/node) Registering and starting kubelet with set of labels
+    default: ""
+  k3s.node-taint: 
+    description: (agent/node) Registering kubelet with set of taints
+    default: ""

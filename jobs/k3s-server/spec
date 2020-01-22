@@ -18,18 +18,16 @@ templates:
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
-consumes: []
+consumes:
+- name: k3s-server
+  type: k3s-server
+  optional: false
 
 provides:
 - name: k3s-server
   type: k3s-server
-  properties:
-  - token
 
 properties:
-  token:
-    description: cluster token 
-    default: 8080
 
   registry.mirrors.endpoint:
     description: private registry endpoint
@@ -49,3 +47,50 @@ properties:
 
   registry.mirrors.tls.ca:
     description: private registry ca
+
+  k3s.xxx:
+    description:
+
+  k3s.v:
+    description: "(logging) Number for the log level verbosity (default: 0)"
+    default: 0
+  k3s.bind-address value:
+    description: "(listener) k3s bind address (default: 0.0.0.0)"
+    default: 0.0.0.0
+  k3s.flannel-backend:                    
+    description: (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'
+    default: vxlan
+  k3s.token:
+    description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
+  k3s.node-label:
+    description: (agent/node) Registering and starting kubelet with set of labels
+    default: ""
+  k3s.node-taint: 
+    description: (agent/node) Registering kubelet with set of taints
+    default: ""
+
+#done    
+#   -v value                                   (logging) Number for the log level verbosity (default: 0)
+#   --bind-address value                       (listener) k3s bind address (default: 0.0.0.0)
+#   --flannel-backend value                    (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard' (default: "vxlan")
+#   --token value, -t value                    (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
+
+#todo
+#   --tls-san value                            (listener) Add additional hostname or IP as a Subject Alternative Name in the TLS cert
+
+#   --kube-apiserver-arg value                 (flags) Customized flag for kube-apiserver process
+#   --kube-scheduler-arg value                 (flags) Customized flag for kube-scheduler process
+#   --kube-controller-manager-arg value        (flags) Customized flag for kube-controller-manager process
+#   --kube-cloud-controller-manager-arg value  (flags) Customized flag for kube-cloud-controller-manager process
+#   --datastore-endpoint value                 (db) Specify etcd, Mysql, Postgres, or Sqlite (default) data source name [$K3S_DATASTORE_ENDPOINT]
+#   --datastore-cafile value                   (db) TLS Certificate Authority file used to secure datastore backend communication [$K3S_DATASTORE_CAFILE]
+#   --datastore-certfile value                 (db) TLS certification file used to secure datastore backend communication [$K3S_DATASTORE_CERTFILE]
+#   --datastore-keyfile value                  (db) TLS key file used to secure datastore backend communication [$K3S_DATASTORE_KEYFILE]
+#   --node-name value                          (agent/node) Node name [$K3S_NODE_NAME]
+#   --with-node-id                             (agent/node) Append id to node name
+#   --docker                                   (agent/runtime) Use docker instead of containerd
+#   --node-ip value, -i value                  (agent/networking) IP address to advertise for node
+#   --node-external-ip value                   (agent/networking) External IP address to advertise for node
+#   --kubelet-arg value                        (agent/flags) Customized flag for kubelet process
+#   --kube-proxy-arg value                     (agent/flags) Customized flag for kube-proxy process
+

@@ -1,6 +1,3 @@
-#!/bin/sh
-
-
 #!/bin/bash
 
 RUN_DIR=/var/vcap/sys/run/k3s-server
@@ -17,7 +14,7 @@ case $1 in
 	
       
     exec  /var/vcap/packages/k3s/k3s server \
-    -v 4 \
+    -v <%= p('k3s.v') %> \
     --data-dir=/var/vcap/store/k3s-server \
     --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \

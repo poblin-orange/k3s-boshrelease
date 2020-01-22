@@ -14,7 +14,7 @@ case $1 in
 	
       
     exec  /var/vcap/packages/k3s/k3s agent \
-    -v 4 \
+    -v <%= p('k3s.v') %> \
     --data-dir=/var/vcap/store/k3s-agent \
     --default-local-storage-path=/var/vcap/store/k3s-agent/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
