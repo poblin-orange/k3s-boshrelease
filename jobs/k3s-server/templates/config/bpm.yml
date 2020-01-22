@@ -12,10 +12,9 @@ processes:
   env:
   - K3S_KUBECONFIG_OUTPUT: /var/vcap/store/k3s-server/kubeconfig.yml
   limits:
-    open_files: 100000
   limits:
-    memory: 1G
-    open_files: 1024
+    memory: 2G
+    open_files: 100000
   capabilities:
   - NET_BIND_SERVICE
 #  additional_volumes:

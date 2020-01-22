@@ -35,17 +35,17 @@ properties:
     description: private registry endpoint
     default: http://localhost:5000
 
-	registry.mirrors.auth.username:
+  registry.mirrors.auth.username:
     description: private registry user
 
-	registry.mirrors.auth.password:
+  registry.mirrors.auth.password:
     description: private registry password
 
-	registry.mirrors.tls.cert:
+  registry.mirrors.tls.cert:
     description: private registry certificate
 
-	registry.mirrors.tls.key:
+  registry.mirrors.tls.key:
     description: private registry private key
 
-	registry.mirrors.tls.ca:
+  registry.mirrors.tls.ca:
     description: private registry ca

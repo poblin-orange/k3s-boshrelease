@@ -1,11 +1,44 @@
 #!/bin/sh
 
 
-export K3S_KUBECONFIG_OUTPUT=/var/vcap/store/k3s-server/kubeconfig.yml
+#!/bin/bash
 
- /var/vcap/packages/k3s/k3s server \
- -v 4 \
---data-dir=/var/vcap/store/k3s-server \
---default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
---private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml
+RUN_DIR=/var/vcap/sys/run/k3s-server
+LOG_DIR=/var/vcap/sys/log/k3s-server
+PIDFILE=${RUN_DIR}/pid
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    echo $$ > $PIDFILE
+	
+	export K3S_KUBECONFIG_OUTPUT=/var/vcap/store/k3s-server/kubeconfig.yml
+      
+    exec  /var/vcap/packages/k3s/k3s server \
+    -v 4 \
+    --data-dir=/var/vcap/store/k3s-server \
+    --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
+    --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
+      >>  $LOG_DIR/k3s-server.stdout.log \
+      2>> $LOG_DIR/k3s-server.stderr.log
+
+    ;;
+
+  stop)
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}" ;;
+
+esac
+
+
+
+
 
