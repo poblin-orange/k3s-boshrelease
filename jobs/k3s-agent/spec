@@ -11,10 +11,6 @@ templates:
   bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
   bin/ctl.erb: bin/ctl
-  config/registries.yaml.erb: config/registries.yaml
-  config/registry.ca.erb: config/registry.ca
-  config/registry.cert.erb: config/registry.cert
-  config/registry.key.erb: config/registry.key 
 
 
 # Documentation https://bosh.io/docs/links.html

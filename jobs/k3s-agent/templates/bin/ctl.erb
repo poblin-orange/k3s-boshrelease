@@ -12,14 +12,15 @@ case $1 in
 
     echo $$ > $PIDFILE
 	
-      
+	export servers="<% masters = link('k3s-server') %><% masters.instances.each do |instance| %> --server=https://<%= instance.address %>:6443 <% end %>"
+	
+	
     exec  /var/vcap/packages/k3s/k3s agent \
     -v <%= p('k3s.v') %> \
+    --token=<%= p('k3s.token') %> \
     --data-dir=/var/vcap/store/k3s-agent \
-    --default-local-storage-path=/var/vcap/store/k3s-agent/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
-    --write-kubeconfig=/var/vcap/store/k3s-agent/kubeconfig.yml \
-    --write-kubeconfig-mode=755 \
+      $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \
       2>> $LOG_DIR/k3s-agent.stderr.log
 
