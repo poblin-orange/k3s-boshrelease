@@ -1,9 +1,11 @@
 ---
 name: k3s-airgaped-images
 
-packages: []
+packages:
+- k3s-images
+
 templates:
-  config/bpm.yml: config/bpm.yml
+  bin/pre-start.erb: bin/pre-start
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
@@ -12,10 +14,5 @@ consumes: []
 provides:
 - name: k3s-airgaped-images
   type: k3s-airgaped-images
-  properties:
-  - port
 
-properties:
-  port:
-    description: Bind to this port
-    default: 8080
+properties: {}

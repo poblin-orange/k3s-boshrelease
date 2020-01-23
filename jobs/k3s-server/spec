@@ -3,7 +3,6 @@ name: k3s-server
 
 packages:
 - k3s
-- k3s-images
 templates:
   config/bpm.yml: config/bpm.yml
   bin/pre-start.erb: bin/pre-start
