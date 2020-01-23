@@ -19,7 +19,8 @@ case $1 in
     --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
     --write-kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml \
-    --write-kubeconfig-mode=755 \
+    --write-kubeconfig-mode=644 \
+    --no-deploy="servicelb" \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
 
