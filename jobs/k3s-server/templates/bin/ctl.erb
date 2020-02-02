@@ -19,6 +19,7 @@ case $1 in
     exec  /var/vcap/packages/k3s/k3s server \
     -v <%= p('k3s.v') %> \
     --token=<%= p('k3s.token') %> \
+    --kubelet-arg=<%= p('k3s.kubelet-arg' %> \
     --data-dir=/var/vcap/store/k3s-server \
     --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \

@@ -72,6 +72,12 @@ properties:
     description: (agent/node) Registering kubelet with set of taints
     default: ""
 
+  k3s.kubelet-arg: 
+    description: (agent/flags) Customized flag for kubelet process
+    default: ""
+
+
+
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)
 #   --bind-address value                       (listener) k3s bind address (default: 0.0.0.0)
