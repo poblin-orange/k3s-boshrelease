@@ -19,6 +19,7 @@ case $1 in
     -v <%= p('k3s.v') %> \
     --token=<%= p('k3s.token') %> \
     --data-dir=/var/vcap/store/k3s-agent \
+    --default-local-storage-path=/var/vcap/store/k3s-agent/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
       $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \

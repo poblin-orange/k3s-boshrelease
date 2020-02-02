@@ -11,6 +11,10 @@ templates:
   bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
   bin/ctl.erb: bin/ctl
+  config/registries.yaml.erb: config/registries.yaml
+  config/registry.ca.erb: config/registry.ca
+  config/registry.cert.erb: config/registry.cert
+  config/registry.key.erb: config/registry.key 
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -26,13 +30,34 @@ provides:
   type: k3s-agent
 
 properties:
+
+  registry.mirrors.endpoint:
+    description: private registry endpoint
+    default: http://localhost:5000
+
+  registry.mirrors.auth.username:
+    description: private registry user
+
+  registry.mirrors.auth.password:
+    description: private registry password
+
+  registry.mirrors.tls.cert:
+    description: private registry certificate
+
+  registry.mirrors.tls.key:
+    description: private registry private key
+
+  registry.mirrors.tls.ca:
+    description: private registry ca
+
+
   k3s.v:
     description: "(logging) Number for the log level verbosity (default: 0)"
     default: 0
   k3s.bind-address value:
     description: "(listener) k3s bind address (default: 0.0.0.0)"
     default: 0.0.0.0
-  k3s.flannel-backend:                    
+  k3s.flannel-backend:
     description: (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'
     default: vxlan
   k3s.token:

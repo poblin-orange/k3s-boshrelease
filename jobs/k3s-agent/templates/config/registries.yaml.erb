@@ -1,0 +1,14 @@
+---
+mirrors:
+  docker.io:
+    endpoint:
+      - <%= p('registry.mirrors.endpoint') %>
+configs:
+  customreg:
+    auth:
+      username: <%= p('registry.mirrors.auth.username') %> # this is the registry username
+      password: <%= p('registry.mirrors.auth.password') %> # this is the registry password
+    tls:
+      cert_file: /var/vcap/jobs/k3s-server/config/registry.cert
+      key_file:  /var/vcap/jobs/k3s-server/config/registry.key
+      ca_file: /var/vcap/jobs/k3s-server/config/registry.ca
