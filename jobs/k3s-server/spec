@@ -14,7 +14,10 @@ templates:
   config/registries.yaml.erb: config/registries.yaml
   config/registry.ca.erb: config/registry.ca
   config/registry.cert.erb: config/registry.cert
-  config/registry.key.erb: config/registry.key 
+  config/registry.key.erb: config/registry.key
+  bin/envrc: bin/envrc
+  bin/setup-user-env: bin/setup-user-env
+
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6

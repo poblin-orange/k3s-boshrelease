@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export PATH=$PATH:/var/vcap/packages/k3s
+export PATH=$PATH:/var/vcap/packages/k9s
+export KUBECONFIG=/var/vcap/store/k3s-server/kubeconfig.yml

@@ -9,6 +9,9 @@ case $1 in
   start)
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
+    
+    # Setup ssh env vars
+    ${JOB_DIR}/bin/setup-user-env
 
     echo $$ > $PIDFILE
 	
