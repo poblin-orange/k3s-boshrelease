@@ -1,5 +1,6 @@
 #!/bin/bash
 
+JOB_DIR=/var/vcap/jobs/k3s-server
 RUN_DIR=/var/vcap/sys/run/k3s-server
 LOG_DIR=/var/vcap/sys/log/k3s-server
 PIDFILE=${RUN_DIR}/pid
@@ -25,9 +26,11 @@ case $1 in
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
     --write-kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml \
     --write-kubeconfig-mode=755 \
-    --kubelet-arg="--hostname-override=<%= spec.ip %>"
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
+
+
+    #TODO --kubelet-arg=" --hostname-override=<%= spec.ip %>" \
 
     ;;
 
