@@ -25,6 +25,7 @@ case $1 in
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
     --write-kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml \
     --write-kubeconfig-mode=755 \
+    --kubelet-arg="--hostname-override=<%= spec.ip %>"
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
 
