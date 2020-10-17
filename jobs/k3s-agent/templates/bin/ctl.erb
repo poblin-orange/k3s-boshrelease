@@ -21,7 +21,6 @@ case $1 in
     --data-dir=/var/vcap/store/k3s-agent \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
     --resolv-conf=/etc/resolv.conf \
-    --kubelet-arg="--hostname-override=<%= spec.ip %>
       $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \
       2>> $LOG_DIR/k3s-agent.stderr.log
