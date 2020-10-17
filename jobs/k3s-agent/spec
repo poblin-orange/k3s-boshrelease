@@ -11,6 +11,10 @@ templates:
   bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
   bin/ctl.erb: bin/ctl
+  bin/k3s-killall.sh: bin/k3s-killall.sh
+
+
+
   config/registries.yaml.erb: config/registries.yaml
   config/registry.ca.erb: config/registry.ca
   config/registry.cert.erb: config/registry.cert
