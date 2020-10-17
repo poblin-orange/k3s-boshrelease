@@ -1,8 +1,7 @@
 #!/bin/sh
 /var/vcap/packages/k3s/k3s check-config
 
-#bpm pre start recommandation
-#sysctl -e -w net.ipv4.tcp_fin_timeout=10
-#sysctl -e -w net.ipv4.tcp_tw_reuse=1
+# Setup ssh env vars
+${JOB_DIR}/bin/setup-user-env
 
 exit 0
