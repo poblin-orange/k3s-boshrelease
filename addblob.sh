@@ -11,4 +11,8 @@ tar xfv ./k9s_Linux_x86_64.tar.gz
 cd ..
 bosh add-blob src/k9s k9s/k9s
 
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl -O src/kubectl
+
+bosh add-blob src/kubectl kubectl/kubectl
+
 
