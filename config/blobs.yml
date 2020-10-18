@@ -12,4 +12,5 @@ k9s/k9s:
   sha: sha256:04b457ba48879f64ec97ca513ad573328939b2c9b3591cb1171d7bd989e3eaef
 kubectl/kubectl:
   size: 43003904
+  object_id: bb931f61-9bd1-4cca-71a0-bf1139913a72
   sha: sha256:79bb0d2f05487ff533999a639c075043c70a0a1ba25c1629eb1eef6ebe3ba70f
