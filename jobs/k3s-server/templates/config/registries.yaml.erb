@@ -1,4 +1,8 @@
 ---
+
+<% if_p('registry.mirrors.endpoint') do |value| %>
+
+
 mirrors:
   docker.io:
     endpoint:
@@ -12,3 +16,6 @@ configs:
       cert_file: /var/vcap/jobs/k3s-server/config/registry.cert
       key_file:  /var/vcap/jobs/k3s-server/config/registry.key
       ca_file: /var/vcap/jobs/k3s-server/config/registry.ca
+
+<% end %>
+      
