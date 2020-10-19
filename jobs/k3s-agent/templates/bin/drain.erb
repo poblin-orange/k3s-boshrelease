@@ -1,6 +1,13 @@
 #!/bin/bash
 
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml get pods --all-namespaces
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-agent/kubeconfig.yml get pods --all-namespaces
 
 #drain
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml drain <%= spec.ip %>
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-agent/kubeconfig.yml  drain <%= spec.ip %> \
+--delete-local-data=<%= p('k3s.drain.delete-local-data') %> \
+--disable-eviction=<%= p('k3s.drain.disable-eviction') %> \
+--drain.grace-period=<%= p('k3s.drain.grace-period') %> \
+--ignore-daemonsets=<%= p('k3s.drain.ignore-daemonsets') %> \
+--skip-wait-for-delete-timeout=<%= p('k3s.drain.skip-wait-for-delete-timeout') %> \
+--drain.timeout=<%= p('k3s.drain.timeout') %> 
+
