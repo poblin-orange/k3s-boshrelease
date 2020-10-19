@@ -1,6 +1,6 @@
 #!/bin/bash
 
-var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml get pods --all-namespaces
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml get pods --all-namespaces
 
 #drain
-var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml drain <%= spec.ip %>
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=./kubeconfig.yml drain <%= spec.ip %>
