@@ -1,14 +1,19 @@
 #!/bin/bash
 
 
+LOG_DIR=/var/vcap/sys/log/k3s-server
+
 /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml get pods --all-namespaces
 
 #drain
 /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml drain <%= spec.ip %> \
 --delete-local-data=<%= p('k3s.drain.delete-local-data') %> \
 --disable-eviction=<%= p('k3s.drain.disable-eviction') %> \
---drain.grace-period=<%= p('k3s.drain.grace-period') %> \
+--grace-period=<%= p('k3s.drain.grace-period') %> \
 --ignore-daemonsets=<%= p('k3s.drain.ignore-daemonsets') %> \
 --skip-wait-for-delete-timeout=<%= p('k3s.drain.skip-wait-for-delete-timeout') %> \
---drain.timeout=<%= p('k3s.drain.timeout') %> 
+--timeout=<%= p('k3s.drain.timeout') %> \
+>> $JOB_DIR/drain.log \
+2>> $JOB_DIR/drain-stderr.log
+
 

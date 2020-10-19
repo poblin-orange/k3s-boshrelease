@@ -90,7 +90,7 @@ properties:
 
   k3s.drain.ignore-daemonsets:
     description: Ignore DaemonSet-managed pods.
-    default: false
+    default: true
 
 
   k3s.drain.skip-wait-for-delete-timeout:
