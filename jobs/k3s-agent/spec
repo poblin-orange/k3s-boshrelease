@@ -38,8 +38,7 @@ provides:
 properties:
 
   registry.mirrors.endpoint:
-    description: private registry endpoint
-    default: http://localhost:5000
+    description: private registry endpoint, eg http://localhost:5000
 
   registry.mirrors.auth.username:
     description: private registry user

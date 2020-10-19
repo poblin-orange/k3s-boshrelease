@@ -9,13 +9,16 @@ mirrors:
       - <%= p('registry.mirrors.endpoint') %>
 configs:
   customreg:
+<% if_p('registry.mirrors.auth.username') do |auth| %>
     auth:
       username: <%= p('registry.mirrors.auth.username') %> # this is the registry username
       password: <%= p('registry.mirrors.auth.password') %> # this is the registry password
+<% end %>
+<% if_p('registry.mirrors.tls.cert') do |value| %>
     tls:
       cert_file: /var/vcap/jobs/k3s-server/config/registry.cert
       key_file:  /var/vcap/jobs/k3s-server/config/registry.key
       ca_file: /var/vcap/jobs/k3s-server/config/registry.ca
-
+<% end %>
 <% end %>
       
