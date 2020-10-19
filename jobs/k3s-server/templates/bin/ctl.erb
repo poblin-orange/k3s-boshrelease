@@ -11,11 +11,7 @@ case $1 in
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
     
-    # Setup ssh env vars
-    ${JOB_DIR}/bin/setup-user-env
-
     echo $$ > $PIDFILE
-	
       
     exec  /var/vcap/packages/k3s/k3s server \
     -v <%= p('k3s.v') %> \
