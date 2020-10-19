@@ -79,6 +79,44 @@ properties:
     description: (agent/flags) Customized flag for kubelet process
     default: ""
 
+  k3s.drain.delete-local-data:
+    description:  continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).
+    default: false
+
+  k3s.drain.disable-eviction: 
+    description: force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution
+    default: false
+
+
+  k3s.drain.grace-period:
+    description: period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used.
+    default: -1
+
+
+  k3s.drain.ignore-daemonsets:
+    description: Ignore DaemonSet-managed pods.
+    default: false
+
+
+  k3s.drain.pod-selector:
+    description:  Label selector to filter pods on the node
+    default: xx #no default
+
+
+  k3s.drain.selector:
+    description: Selector (label query) to filter on
+    default: xx #no default
+
+
+  k3s.drain.skip-wait-for-delete-timeout:
+    description: If pod DeletionTimestamp older than N seconds, skip waiting for the pod. Seconds must be greater than 0 to skip.
+    default: 0
+
+
+  k3s.drain.timeout:
+    description: The length of time to wait before giving up, zero means infinite
+    default: 0
+
 
 
 #done    
