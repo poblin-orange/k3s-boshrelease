@@ -1,4 +1,6 @@
 #!/bin/sh
+export JOB_DIR=/var/vcap/jobs/k3s-server
+
 /var/vcap/packages/k3s/k3s check-config
 
 # Setup ssh env vars
