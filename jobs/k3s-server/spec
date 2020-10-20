@@ -4,17 +4,24 @@ name: k3s-server
 packages:
 - k3s
 - k9s
+- kubectl-k3s
 templates:
   config/bpm.yml: config/bpm.yml
   bin/pre-start.erb: bin/pre-start
   bin/post-start.erb: bin/post-start  
   bin/pre-stop.erb: bin/pre-stop
+  bin/pre-stop.erb: bin/pre-stop
   bin/post-deploy.erb: bin/post-deploy
+  bin/drain.erb: bin/drain
   bin/ctl.erb: bin/ctl
   config/registries.yaml.erb: config/registries.yaml
   config/registry.ca.erb: config/registry.ca
   config/registry.cert.erb: config/registry.cert
-  config/registry.key.erb: config/registry.key 
+  config/registry.key.erb: config/registry.key
+  bin/envrc: bin/envrc
+  bin/setup-user-env.erb: bin/setup-user-env
+  bin/k3s-killall.sh: bin/k3s-killall.sh
+
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
@@ -30,8 +37,7 @@ provides:
 properties:
 
   registry.mirrors.endpoint:
-    description: private registry endpoint
-    default: http://localhost:5000
+    description: private registry endpoint, eg http://localhost:5000
 
   registry.mirrors.auth.username:
     description: private registry user
@@ -47,9 +53,6 @@ properties:
 
   registry.mirrors.tls.ca:
     description: private registry ca
-
-  k3s.xxx:
-    description:
 
   k3s.v:
     description: "(logging) Number for the log level verbosity (default: 0)"
@@ -68,6 +71,41 @@ properties:
   k3s.node-taint: 
     description: (agent/node) Registering kubelet with set of taints
     default: ""
+
+  k3s.kubelet-arg: 
+    description: (agent/flags) Customized flag for kubelet process
+    default: ""
+
+  k3s.drain.delete-local-data:
+    description:  continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).
+    default: false
+
+  k3s.drain.disable-eviction: 
+    description: force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution
+    default: false
+
+  k3s.drain.grace-period:
+    description: period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used.
+    default: -1
+
+  k3s.drain.ignore-daemonsets:
+    description: Ignore DaemonSet-managed pods.
+    default: true
+
+
+  k3s.drain.skip-wait-for-delete-timeout:
+    description: If pod DeletionTimestamp older than N seconds, skip waiting for the pod. Seconds must be greater than 0 to skip.
+    default: 0
+
+  k3s.drain.timeout:
+    description: The length of time to wait before giving up, zero means infinite
+    default: 0
+
+  k3s.drain.pod-selector: #Not implemented
+    description:  Label selector to filter pods on the node
+
+  k3s.drain.selector:  #Not implemented
+    description: Selector (label query) to filter on
 
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)

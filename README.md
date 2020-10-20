@@ -1,6 +1,23 @@
 # BOSH release for k3s
 
-This BOSH release and deployment manifest deploy a cluster of k3s.
+This BOSH release and deployment manifest deploy a cluster of k3s
+
+Lightweight Kubernetes. 5 less than k8s. https://k3s.io.
+
+
+## design overview
+
+Provide a lightweight bosh packaging of Rancher k3s kubernetes distribution
+
+Includes
+- Rancher k3s binary
+- k9S binary
+
+
+The bosh release offers 2 jobs to build a full k3s bosh deployment:
+- k3s-server job.
+- k3s-agent job.
+
 
 ## Usage
 

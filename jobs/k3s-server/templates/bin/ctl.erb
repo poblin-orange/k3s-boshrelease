@@ -1,5 +1,6 @@
 #!/bin/bash
 
+JOB_DIR=/var/vcap/jobs/k3s-server
 RUN_DIR=/var/vcap/sys/run/k3s-server
 LOG_DIR=/var/vcap/sys/log/k3s-server
 PIDFILE=${RUN_DIR}/pid
@@ -9,19 +10,27 @@ case $1 in
   start)
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
+    
+    export K3S_NODE_NAME=<%= spec.ip %>
 
     echo $$ > $PIDFILE
-	
       
     exec  /var/vcap/packages/k3s/k3s server \
     -v <%= p('k3s.v') %> \
+    --token=<%= p('k3s.token') %> \
+    --resolv-conf=/etc/resolv.conf \
     --data-dir=/var/vcap/store/k3s-server \
     --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
-    --write-kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml \
+    --write-kubeconfig=/var/vcap/store/k3s-server/k3s.yaml \
     --write-kubeconfig-mode=755 \
+    --tls-san=<%= spec.ip %> \
+    --node-external-ip=<%= spec.ip %> \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
+
+
+    #TODO --kubelet-arg=" --hostname-override=<%= spec.ip %>" \
 
     ;;
 
