@@ -23,7 +23,7 @@ case $1 in
     --data-dir=/var/vcap/store/k3s-agent \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
     --resolv-conf=/etc/resolv.conf \
-    --node-label bosh.io/az=<%= spec.az %>,bosh.io/name=<%= spec.name %>,bosh.io/bootstrap=<%= spec.bootstrap %>,bosh.io/index=<%= spec.index %>,bosh.io/address=<%= spec.address %> \
+    --node-label bosh.io/az=<%= spec.az %>,bosh.io/name=<%= spec.name %>,bosh.io/bootstrap=<%= spec.bootstrap %>,bosh.io/index=<%= spec.index %>,bosh.io/address=<%= spec.address %>,topology.kubernetes.io/zone=<%= spec.az %> \
       $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \
       2>> $LOG_DIR/k3s-agent.stderr.log
