@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #FIXME: check how a node can drain itself (which kubeconfig ?)
-exit 0
+echo 0; exit 0
+
 
 LOG_DIR=/var/vcap/sys/log/k3s-agent
 
@@ -17,5 +18,7 @@ LOG_DIR=/var/vcap/sys/log/k3s-agent
 --timeout=<%= p('k3s.drain.timeout') %>  \
 >> $JOB_DIR/drain.log \
 2>> $JOB_DIR/drain-stderr.log
+
+echo 0; exit 0
 
 
