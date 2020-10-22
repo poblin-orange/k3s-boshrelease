@@ -4,6 +4,22 @@ This BOSH release and deployment manifest deploy a cluster of k3s
 
 Lightweight Kubernetes. 5 less than k8s. https://k3s.io.
 
+The aim of the bosh release:
+- offer a very thin layer on top of k3 binary
+- reduced memory footprint wrt existing k8s bosh release
+
+- enrich k3 experience with bosh goodies
+  - reproductible / stable OS provided as stemcell
+  - easy cluster deployment (multi-vm, multi-master, correcly wired master / agent)
+  - credhub secrets generation (k3s-token)
+- day 2 operations (persistend disk resize, stemcell rotation)  
+- ease of dev / operations
+  - k9s and kubectl are packaged and preconfigured inside the bosh instances
+  - easy automation with complementary mechanismes
+    - bosh errand mechanism
+    - helm-kubectl bosh release
+    - terraform bosh release
+    - generic scripting release (if low level scripting is required)
 
 ## design overview
 
