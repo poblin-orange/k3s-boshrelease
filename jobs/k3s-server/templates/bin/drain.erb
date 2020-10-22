@@ -3,7 +3,7 @@
 
 LOG_DIR=/var/vcap/sys/log/k3s-server
 
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml get pods --all-namespaces
+#/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml get pods --all-namespaces
 
 #drain
 /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml drain <%= spec.ip %> \
