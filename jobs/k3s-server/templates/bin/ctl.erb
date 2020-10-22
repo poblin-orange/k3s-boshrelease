@@ -26,6 +26,7 @@ case $1 in
     --write-kubeconfig-mode=755 \
     --tls-san=<%= spec.ip %> \
     --node-external-ip=<%= spec.ip %> \
+    --node-label bosh.io/az=<%= spec.az %>  \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
 
