@@ -15,7 +15,7 @@ case $1 in
 	export servers="<% masters = link('k3s-server') %><% masters.instances.each do |instance| %> --server=https://<%= instance.address %>:6443 <% end %>"
 	
 
-	export K3S_NODE_NAME=<%= spec.ip %>
+        export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
 
     exec  /var/vcap/packages/k3s/k3s agent \
     -v <%= p('k3s.v') %> \

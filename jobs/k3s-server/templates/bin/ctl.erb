@@ -11,7 +11,7 @@ case $1 in
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
     
-    export K3S_NODE_NAME=<%= spec.ip %>
+    export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
 
     echo $$ > $PIDFILE
       
