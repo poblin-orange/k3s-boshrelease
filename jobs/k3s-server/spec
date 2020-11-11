@@ -22,6 +22,10 @@ templates:
   bin/setup-user-env.erb: bin/setup-user-env
   bin/k3s-killall.sh: bin/k3s-killall.sh
 
+  config/datastore-cafile.erb: config/datastore-cafile
+  config/datastore-certfile.erb: config/datastore-certfile
+  config/datastore-keyfile.erb: config/datastore-keyfile
+
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
@@ -70,6 +74,8 @@ properties:
     description: (agent/flags) Customized flag for kubelet process
     default: ""
 
+## drain options
+
   k3s.drain.delete-local-data:
     description:  continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).
     default: false
@@ -100,6 +106,19 @@ properties:
 
   k3s.drain.selector:  #Not implemented
     description: Selector (label query) to filter on
+
+## db options
+  k3s.datastore-endpoint:
+    description: Specify etcd, Mysql, Postgres, or Sqlite (default) data source name
+  k3s.datastore-cafile:
+    description: TLS Certificate Authority file used to secure datastore backend communication
+  k3s.datastore-certfile:
+    description: TLS certification file used to secure datastore backend communication
+  k3s.datastore-keyfile:
+    description: TLS key file used to secure datastore backend communication
+
+
+
 
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)
