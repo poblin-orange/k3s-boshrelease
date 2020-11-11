@@ -15,19 +15,19 @@ case $1 in
     
     <% if_p('k3s.datastore-endpoint') do |value| %>
     export K3S_DATASTORE_ENDPOINT=<%= p('k3s.datastore-endpoint') %>
-    <<% end %>
+    <% end %>
     
     <% if_p('k3s.datastore-cafile') do |value| %>
     export K3S_DATASTORE_CAFILE=/var/vcap/jobs/k3s-server/config/datastore-cafile
-    <<% end %>
+    <% end %>
 
     <% if_p('k3s.datastore-certfile') do |value| %>
     export K3S_DATASTORE_CERTFILE=/var/vcap/jobs/k3s-server/config/datastore-certfile
-    <<% end %>
+    <% end %>
 
     <% if_p('k3s.datastore-keyfile') do |value| %>
     export K3S_DATASTORE_KEYFILE=/var/vcap/jobs/k3s-server/config/datastore-keyfile 
-    <<% end %>
+    <% end %>
     
     
 
