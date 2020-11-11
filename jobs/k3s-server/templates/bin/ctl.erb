@@ -20,7 +20,7 @@ case $1 in
     --token=<%= p('k3s.token') %> \
     --resolv-conf=/etc/resolv.conf \
     --data-dir=/var/vcap/store/k3s-server \
-    --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
+    --default-local-storage-path=/var/vcap/store/k3s-local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
     --write-kubeconfig=/var/vcap/store/k3s-server/k3s.yaml \
     --write-kubeconfig-mode=755 \
