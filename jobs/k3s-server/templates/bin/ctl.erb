@@ -12,6 +12,24 @@ case $1 in
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
     
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    
+    <% if_p('k3s.datastore-endpoint') do |value| %>
+    export K3S_DATASTORE_ENDPOINT=<%= p('k3s.datastore-endpoint') %>
+    <<% end %>
+    
+    <% if_p('k3s.datastore-cafile') do |value| %>
+    export K3S_DATASTORE_CAFILE=/var/vcap/jobs/k3s-server/config/datastore-cafile
+    <<% end %>
+
+    <% if_p('k3s.datastore-certfile') do |value| %>
+    export K3S_DATASTORE_CERTFILE=/var/vcap/jobs/k3s-server/config/datastore-certfile
+    <<% end %>
+
+    <% if_p('k3s.datastore-keyfile') do |value| %>
+    export K3S_DATASTORE_KEYFILE=/var/vcap/jobs/k3s-server/config/datastore-keyfile 
+    <<% end %>
+    
+    
 
     echo $$ > $PIDFILE
       
@@ -20,7 +38,7 @@ case $1 in
     --token=<%= p('k3s.token') %> \
     --resolv-conf=/etc/resolv.conf \
     --data-dir=/var/vcap/store/k3s-server \
-    --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
+    --default-local-storage-path=/var/vcap/store/k3s-local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
     --write-kubeconfig=/var/vcap/store/k3s-server/k3s.yaml \
     --write-kubeconfig-mode=755 \
