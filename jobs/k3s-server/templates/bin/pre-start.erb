@@ -11,4 +11,7 @@ mkdir -p /etc/rancher
 mkdir -p /var/vcap/store/k3s-agent/etc/rancher/node
 ln -sf /var/vcap/store/k3s-agent/etc/rancher/node /etc/rancher/node
 
+#fix cert chmod
+chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
+
 exit 0
