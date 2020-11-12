@@ -1,5 +1,6 @@
 #!/bin/bash
 
+JOB_DIR=/var/vcap/jobs/k3s-server
 RUN_DIR=/var/vcap/sys/run/k3s-server
 LOG_DIR=/var/vcap/sys/log/k3s-server
 PIDFILE=${RUN_DIR}/pid
@@ -9,19 +10,51 @@ case $1 in
   start)
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
+    
+    export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    
+    <% if_p('k3s.datastore-endpoint') do |value| %>
+    export K3S_DATASTORE_ENDPOINT=<%= p('k3s.datastore-endpoint') %>
+    <% end %>
+    
+    <% if_p('k3s.datastore-cafile') do |value| %>
+    export K3S_DATASTORE_CAFILE=/var/vcap/jobs/k3s-server/config/datastore-cafile
+    <% end %>
+
+    <% if_p('k3s.datastore-certfile') do |value| %>
+    export K3S_DATASTORE_CERTFILE=/var/vcap/jobs/k3s-server/config/datastore-certfile
+    <% end %>
+
+    <% if_p('k3s.datastore-keyfile') do |value| %>
+    export K3S_DATASTORE_KEYFILE=/var/vcap/jobs/k3s-server/config/datastore-keyfile 
+    <% end %>
+    
+    
 
     echo $$ > $PIDFILE
-	
       
     exec  /var/vcap/packages/k3s/k3s server \
     -v <%= p('k3s.v') %> \
+    --token=<%= p('k3s.token') %> \
+    --resolv-conf=/etc/resolv.conf \
     --data-dir=/var/vcap/store/k3s-server \
-    --default-local-storage-path=/var/vcap/store/k3s-server/local-storage-path \
+    --default-local-storage-path=/var/vcap/store/k3s-local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
-    --write-kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml \
+    --write-kubeconfig=/var/vcap/store/k3s-server/k3s.yaml \
     --write-kubeconfig-mode=755 \
+    --tls-san=<%= spec.ip %> \
+    --node-external-ip=<%= spec.ip %> \
+    --node-label bosh.io/az=<%= spec.az %> \
+    --node-label bosh.io/name=<%= spec.name %>  \
+    --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
+    --node-label bosh.io/index=<%= spec.index %>  \
+    --node-label bosh.io/address=<%= spec.address %>  \
+    --node-label topology.kubernetes.io/zone=<%= spec.az %> \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
+
+
+    #TODO --kubelet-arg=" --hostname-override=<%= spec.ip %>" \
 
     ;;
 

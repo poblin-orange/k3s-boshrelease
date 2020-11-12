@@ -1,8 +1,17 @@
 #!/bin/sh
+export JOB_DIR=/var/vcap/jobs/k3s-server
+
 /var/vcap/packages/k3s/k3s check-config
 
-#bpm pre start recommandation
-#sysctl -e -w net.ipv4.tcp_fin_timeout=10
-#sysctl -e -w net.ipv4.tcp_tw_reuse=1
+# Setup ssh env vars
+${JOB_DIR}/bin/setup-user-env
+
+#prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
+mkdir -p /etc/rancher
+mkdir -p /var/vcap/store/k3s-agent/etc/rancher/node
+ln -sf /var/vcap/store/k3s-agent/etc/rancher/node /etc/rancher/node
+
+#fix cert chmod
+chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
 
 exit 0

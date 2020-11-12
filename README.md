@@ -1,6 +1,41 @@
 # BOSH release for k3s
 
-This BOSH release and deployment manifest deploy a cluster of k3s.
+This BOSH release and deployment manifest deploy a cluster of k3s
+
+Lightweight Kubernetes. 5 less than k8s. https://k3s.io.
+
+The aim of the bosh release:
+- offer a very thin layer on top of k3 binary
+- reduced memory footprint wrt existing k8s bosh release
+
+- enrich k3 experience with bosh goodies
+  - reproductible / stable OS provided as stemcell
+  - easy cluster deployment (multi-vm, multi-master, correcly wired master / agent)
+  - multi-iaas capability (vpshere/openstack/gcp/azure/ ... )
+  - credhub secrets generation (k3s-token)
+- day 2 operations (persistend disk resize, stemcell rotation)  
+- ease of dev / operations
+  - k9s and kubectl are packaged and preconfigured inside the bosh instances
+  - easy automation with complementary bosh mechanismes
+    - bosh errand mechanism
+    - helm-kubectl bosh release
+    - terraform bosh release
+    - database bosh releases for backend (posgres / mysql /etcd)
+    - generic scripting release (if low level scripting is required)
+
+## design overview
+
+Provide a lightweight bosh packaging of Rancher k3s kubernetes distribution
+
+Includes
+- Rancher k3s binary
+- k9S binary
+
+
+The bosh release offers 2 jobs to build a full k3s bosh deployment:
+- k3s-server job.
+- k3s-agent job.
+
 
 ## Usage
 
