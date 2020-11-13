@@ -21,10 +21,15 @@ case $1 in
 
 <% if_p('k3s.node-labels') do |value| %>
 <% p('k3s.node-labels').each do |label| %>
-    export FLAGS = $FLAGS --node-label <%= label %>
+    export FLAGS="$FLAGS --node-label <%= label %>"
 <% end %>
 <% end %>
 
+<% if_p('k3s.node-taints') do |value| %>
+<% p('k3s.node-taints').each do |taint| %>
+    export FLAGS="$FLAGS --node-taint <%= taint %>"
+<% end %>
+<% end %>
 
 
 

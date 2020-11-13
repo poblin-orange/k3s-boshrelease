@@ -65,11 +65,11 @@ properties:
     
 ## additional label and taints (added to k3s and bosh default labels) 
   k3s.node-labels:
-    description: (agent/node) Registering and starting kubelet with set of labels
+    description: (agent/node) Registering and starting kubelet with set of labels format is key=value
     default: []
   k3s.node-taints: 
-    description: (agent/node) Registering kubelet with set of taints
-    default: ""
+    description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
+    default: []
 
 
 ## drain options

@@ -81,8 +81,8 @@ properties:
     description: (agent/node) Registering and starting kubelet with set of labels
     default: []
   k3s.node-taints: 
-    description: (agent/node) Registering kubelet with set of taints
-    default: ""
+    description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
+    default: []
 
 
 
