@@ -15,7 +15,18 @@ case $1 in
 	export servers="<% masters = link('k3s-server') %><% masters.instances.each do |instance| %> --server=https://<%= instance.address %>:6443 <% end %>"
 	
 
-        export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    
+    export FLAGS=""
+
+<% if_p('k3s.node-labels') do |value| %>
+<% p('k3s.node-labels').each do |label| %>
+    export FLAGS = $FLAGS --node-label <%= label %>
+<% end %>
+<% end %>
+
+
+
 
     exec  /var/vcap/packages/k3s/k3s agent \
     -v <%= p('k3s.v') %> \
@@ -30,6 +41,7 @@ case $1 in
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.address %>  \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
+      $FLAGS \
       $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \
       2>> $LOG_DIR/k3s-agent.stderr.log

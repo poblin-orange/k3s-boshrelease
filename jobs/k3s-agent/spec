@@ -64,10 +64,10 @@ properties:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
     
 ## additional label and taints (added to k3s and bosh default labels) 
-  k3s.node-label:
+  k3s.node-labels:
     description: (agent/node) Registering and starting kubelet with set of labels
     default: []
-  k3s.node-taint: 
+  k3s.node-taints: 
     description: (agent/node) Registering kubelet with set of taints
     default: ""
 
