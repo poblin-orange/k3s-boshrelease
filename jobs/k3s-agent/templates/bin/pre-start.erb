@@ -3,7 +3,7 @@
 
 #prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
 mkdir -p /etc/rancher
-mkdir -p /var/vcap/store/k3s-agent/etc/rancher/node
-ln -sf /var/vcap/store/k3s-agent/etc/rancher/node /etc/rancher/node
+mkdir -p /var/vcap/store/k3s-node/etc/rancher/node
+ln -sf /etc/rancher/node /var/vcap/store/k3s-node/etc/rancher/node 
 
 exit 0

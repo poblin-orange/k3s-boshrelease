@@ -25,6 +25,8 @@ templates:
   config/datastore-cafile.erb: config/datastore-cafile
   config/datastore-certfile.erb: config/datastore-certfile
   config/datastore-keyfile.erb: config/datastore-keyfile
+  
+  config/additional-manifest.yaml.erb: config/additional-manifest.yaml
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -84,6 +86,10 @@ properties:
     description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
     default: []
 
+## additional manifests to apply
+  k3s.additional-manifests:
+    default: []
+    description: array of additionnel yaml to apply at k3s start
 
 
 ## drain options
