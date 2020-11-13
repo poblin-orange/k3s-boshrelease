@@ -62,3 +62,7 @@ git pull
 cd -
 bosh deploy k3s-boshrelease/manifests/k3s.yml
 ```
+
+## Full fledge usage sample
+this bosh release usage can be seen in action in https://github.com/orange-cloudfoundry/paas-templates/tree/manual-drop/shared-operators/k3s
+
