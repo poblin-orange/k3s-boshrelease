@@ -63,16 +63,26 @@ properties:
     default: vxlan
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
-  k3s.node-label:
-    description: (agent/node) Registering and starting kubelet with set of labels
-    default: ""
-  k3s.node-taint: 
-    description: (agent/node) Registering kubelet with set of taints
-    default: ""
+
+  k3s.kubelet-arg: 
+    description: (components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)
+    default: []
 
   k3s.kubelet-arg: 
     description: (agent/flags) Customized flag for kubelet process
     default: ""
+
+
+## additional label and taints (added to k3s and bosh default labels) 
+  k3s.node-label:
+    description: (agent/node) Registering and starting kubelet with set of labels
+    default: []
+
+  k3s.node-taint: 
+    description: (agent/node) Registering kubelet with set of taints
+    default: ""
+
+
 
 ## drain options
 
