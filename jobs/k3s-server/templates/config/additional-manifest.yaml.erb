@@ -1,0 +1,6 @@
+<% if_p('additional-manifests') do |value| %>
+<% p('additional-manifests').each do |file| %>
+---
+<%= file %>
+<% end %>
+<% end %>

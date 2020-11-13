@@ -7,11 +7,16 @@ export JOB_DIR=/var/vcap/jobs/k3s-server
 ${JOB_DIR}/bin/setup-user-env
 
 #prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
-mkdir -p /etc/rancher
-mkdir -p /var/vcap/store/k3s-agent/etc/rancher/node
-ln -sf /var/vcap/store/k3s-agent/etc/rancher/node /etc/rancher/node
+mkdir -p /etc
+mkdir -p /var/vcap/store/k3s-node/etc/rancher
+ln -sf  /var/vcap/store/k3s-node/etc/rancher /etc/rancher
 
 #fix cert chmod
 chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
+
+#copy additional manifest file
+
+mkdir -p /var/vcap/store/k3s-server/
+cp -f $JOB_DIR/config/additional-manifest.yaml /var/vcap/store/k3s-server/server/manifests/additional-manifest.yaml
 
 exit 0

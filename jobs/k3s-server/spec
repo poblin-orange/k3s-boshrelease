@@ -25,6 +25,8 @@ templates:
   config/datastore-cafile.erb: config/datastore-cafile
   config/datastore-certfile.erb: config/datastore-certfile
   config/datastore-keyfile.erb: config/datastore-keyfile
+  
+  config/additional-manifest.yaml.erb: config/additional-manifest.yaml
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -63,16 +65,32 @@ properties:
     default: vxlan
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
-  k3s.node-label:
-    description: (agent/node) Registering and starting kubelet with set of labels
-    default: ""
-  k3s.node-taint: 
-    description: (agent/node) Registering kubelet with set of taints
-    default: ""
+
 
   k3s.kubelet-arg: 
     description: (agent/flags) Customized flag for kubelet process
     default: ""
+
+
+#disable defaut k3s components
+  k3s.disable: 
+    description: (components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)
+    default: []
+
+
+## additional label and taints (added to k3s and bosh default labels) 
+  k3s.node-labels:
+    description: (agent/node) Registering and starting kubelet with set of labels
+    default: []
+  k3s.node-taints: 
+    description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
+    default: []
+
+## additional manifests to apply
+  k3s.additional-manifests:
+    default: []
+    description: array of additionnel yaml to apply at k3s start
+
 
 ## drain options
 
@@ -125,6 +143,10 @@ properties:
 #   --bind-address value                       (listener) k3s bind address (default: 0.0.0.0)
 #   --flannel-backend value                    (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard' (default: "vxlan")
 #   --token value, -t value                    (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
+#   --datastore-endpoint value                 (db) Specify etcd, Mysql, Postgres, or Sqlite (default) data source name [$K3S_DATASTORE_ENDPOINT]
+#   --datastore-cafile value                   (db) TLS Certificate Authority file used to secure datastore backend communication [$K3S_DATASTORE_CAFILE]
+#   --datastore-certfile value                 (db) TLS certification file used to secure datastore backend communication [$K3S_DATASTORE_CERTFILE]
+#   --datastore-keyfile value                  (db) TLS key file used to secure datastore backend communication [$K3S_DATASTORE_KEYFILE]
 
 #todo
 #   --tls-san value                            (listener) Add additional hostname or IP as a Subject Alternative Name in the TLS cert
@@ -133,10 +155,6 @@ properties:
 #   --kube-scheduler-arg value                 (flags) Customized flag for kube-scheduler process
 #   --kube-controller-manager-arg value        (flags) Customized flag for kube-controller-manager process
 #   --kube-cloud-controller-manager-arg value  (flags) Customized flag for kube-cloud-controller-manager process
-#   --datastore-endpoint value                 (db) Specify etcd, Mysql, Postgres, or Sqlite (default) data source name [$K3S_DATASTORE_ENDPOINT]
-#   --datastore-cafile value                   (db) TLS Certificate Authority file used to secure datastore backend communication [$K3S_DATASTORE_CAFILE]
-#   --datastore-certfile value                 (db) TLS certification file used to secure datastore backend communication [$K3S_DATASTORE_CERTFILE]
-#   --datastore-keyfile value                  (db) TLS key file used to secure datastore backend communication [$K3S_DATASTORE_KEYFILE]
 #   --node-name value                          (agent/node) Node name [$K3S_NODE_NAME]
 #   --with-node-id                             (agent/node) Append id to node name
 #   --docker                                   (agent/runtime) Use docker instead of containerd

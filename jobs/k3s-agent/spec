@@ -62,12 +62,17 @@ properties:
     default: vxlan
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
-  k3s.node-label:
-    description: (agent/node) Registering and starting kubelet with set of labels
-    default: ""
-  k3s.node-taint: 
-    description: (agent/node) Registering kubelet with set of taints
-    default: ""
+    
+## additional label and taints (added to k3s and bosh default labels) 
+  k3s.node-labels:
+    description: (agent/node) Registering and starting kubelet with set of labels format is key=value
+    default: []
+  k3s.node-taints: 
+    description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
+    default: []
+
+
+## drain options
 
   k3s.drain.delete-local-data:
     description:  continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).

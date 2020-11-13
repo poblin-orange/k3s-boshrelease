@@ -29,7 +29,24 @@ case $1 in
     export K3S_DATASTORE_KEYFILE=/var/vcap/jobs/k3s-server/config/datastore-keyfile 
     <% end %>
     
-    
+    export FLAGS=""
+<% if_p('k3s.disable') do |value| %>
+<% p('k3s.disable').each do |components| %>
+    export FLAGS="$FLAGS --disable <%= components %>"
+<% end %>
+<% end %>
+
+<% if_p('k3s.node-labels') do |value| %>
+<% p('k3s.node-labels').each do |label| %>
+    export FLAGS="$FLAGS --node-label <%= label %>"
+<% end %>
+<% end %>
+
+<% if_p('k3s.node-taints') do |value| %>
+<% p('k3s.node-taints').each do |taint| %>
+    export FLAGS="$FLAGS --node-taint <%= taint %>"
+<% end %>
+<% end %>
 
     echo $$ > $PIDFILE
       
@@ -50,6 +67,7 @@ case $1 in
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.address %>  \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
+      $FLAGS \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
 
