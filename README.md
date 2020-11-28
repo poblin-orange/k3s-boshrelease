@@ -18,10 +18,10 @@ The aim of the bosh release:
   - k9s and kubectl are packaged and preconfigured inside the bosh instances
   - easy automation with complementary bosh mechanismes
     - bosh errand mechanism
-    - helm-kubectl bosh release
-    - terraform bosh release
+    - helm-kubectl bosh release https://orange-cloudfoundry.github.io/helm-kubectl-boshrelease/
+    - terraform bosh release https://github.com/orange-cloudfoundry/terraform-release
     - database bosh releases for backend (posgres / mysql /etcd)
-    - generic scripting release (if low level scripting is required)
+    - generic scripting release (if low level scripting is required) https://github.com/orange-cloudfoundry/generic-scripting-release
 
 ## design overview
 
