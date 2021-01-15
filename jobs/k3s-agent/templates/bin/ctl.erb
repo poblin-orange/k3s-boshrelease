@@ -17,6 +17,10 @@ case $1 in
 
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
     
+    <% if_p('k3s.token-file-content') do |value| %>
+    export K3S_TOKEN_FILE=/var/vcap/jobs/k3s-agent/config/token.csv
+    <% end %>
+
     export FLAGS=""
 
 <% if_p('k3s.node-labels') do |value| %>
