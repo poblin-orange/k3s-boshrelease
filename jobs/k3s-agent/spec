@@ -22,7 +22,7 @@ templates:
   config/registry.ca.erb: config/registry.ca
   config/registry.cert.erb: config/registry.cert
   config/registry.key.erb: config/registry.key 
-
+  config/token.csv.erb: config/token.csv
 
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
@@ -105,6 +105,9 @@ properties:
   k3s.drain.selector:  #Not implemented
     description: Selector (label query) to filter on
 
+#token-file
+  k3s.token-file-content:
+    description: token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file
 
 ## args
 
