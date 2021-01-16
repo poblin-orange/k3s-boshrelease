@@ -105,6 +105,9 @@ properties:
   k3s.drain.selector:  #Not implemented
     description: Selector (label query) to filter on
 
+#token-file
+  k3s.token-file-content:
+    description: token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file
 
 ## args
 
