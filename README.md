@@ -1,5 +1,11 @@
 # BOSH release for k3s
 
+<p><img src="https://k3s.io/images/logo-k3s.svg" alt="k3s Logo" /></p>
+<p><img src="https://www.cloudfoundry.org/wp-content/uploads/2017/10/CFF-BOSH-Full-Color-1.png" alt="bosh Logo" /></p>
+
+
+
+
 This BOSH release and deployment manifest deploy a cluster of k3s
 
 Lightweight Kubernetes. 5 less than k8s. https://k3s.io.
