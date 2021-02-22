@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#copy images to containerd expected location (datadir/images) for airgap start.
+# see https://rancher.com/docs/k3s/latest/en/installation/airgap/
+mkdir -p /var/vcap/data/k3s-server/kubelet/images
+cp /var/vcap/packages/k3s-images/k3s-airgap-images-amd64.tar /var/vcap/data/k3s-server/kubelet/images
+
+echo 'done installing airgaped docker images for containerd'
+exit 0
