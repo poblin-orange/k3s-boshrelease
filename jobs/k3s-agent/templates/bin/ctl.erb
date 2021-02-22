@@ -22,6 +22,10 @@ case $1 in
     <% end %>
 
     export FLAGS=""
+    
+    #adapt kubelet root dir to match bosh fs
+    export FLAGS="$FLAGS --kubelet-arg=root-dir=/var/vcap/data/k3s-agent/kubelet"
+
 
 <% if_p('k3s.node-labels') do |value| %>
 <% p('k3s.node-labels').each do |label| %>
