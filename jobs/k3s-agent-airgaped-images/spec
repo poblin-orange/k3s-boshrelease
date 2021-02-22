@@ -1,5 +1,5 @@
 ---
-name: k3s-airgaped-images
+name: k3s-agent-airgaped-images
 
 packages:
 - k3s-images
