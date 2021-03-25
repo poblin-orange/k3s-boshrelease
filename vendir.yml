@@ -2,114 +2,28 @@ apiVersion: vendir.k14s.io/v1alpha1
 kind: Config
 directories:
 
-- path: vendor/helm
-  contents:
-#  - path: rundeck
-#    helmChart:
-#      name: incubator/rundeck
-#      version: 0.3.6 
-#      repository:
-#        url: https://charts.helm.sh/incubator 
 
-  # Default repository has been deprecated
-  - path: default-repo
-    helmChart:
-      name: stable/redis
-      repository:
-        url: https://charts.helm.sh/stable
-  - path: contour 
-    helmChart:
-      name: contour
-      version: "1.2.1"
-      repository:
-        url: https://charts.bitnami.com/bitnami
-
-- path: vendor/bosh
+- path: src 
   contents:
 
-  - path: cf-deployment
-    git:
-      url: https://github.com/cloudfoundry/cf-deployment
-      ref: v15.5.0
-    excludePaths:
-    - .git/**/*
+  # validates checksums automatically from release notes
 
-  - path: prometheus-boshrelease
-    git:
-      url: https://github.com/bosh-prometheus/prometheus-boshrelease
-      ref: v26.4.0
+  - path: github.com/k3s-io/k3s
+    githubRelease:
+      slug: k3s-io/k3s
+      tag: v1.19.8+k3s1
+      disableAutoChecksumValidation: true 
     includePaths:
-    - manifests/**/*
-
-  - path: cf-for-k8s
-    git:
-      url: https://github.com/cloudfoundry/cf-for-k8s
-      ref: v1.1.0
-    excludePaths:
-    - .git/**/*
-
-  - path: cf-mysql-deployment
-    git:
-      url: https://github.com/orange-cloudfoundry/cf-mysql-deployment.git
-      ref: v36.19.0
-    excludePaths:
-    - .git/**/*
-
-  - path: elastic-stack-bosh-deployment
-    git:
-      url: https://github.com/bosh-elastic-stack/elastic-stack-bosh-deployment
-      ref: 7.2.0_2019-07-17
-    excludePaths:
-    - .git/**/*
+    - "k3s"
+    - "k3s-airgap-images-amd64.tar"
 
 
-  - path: shield-boshrelease
-    git:
-      url: https://github.com/shieldproject/shield-boshrelease
-      ref: v8.5.0
+  - path: github.com/derailed/k9s
+    githubRelease:
+      slug: derailed/k9s
+      tag: v0.24.4 
+      disableAutoChecksumValidation: true 
     includePaths:
-    - manifests/**/*
+    - "k9s_Linux_x86_64.tar.gz"
 
-  - path: concourse-bosh-deployment
-    git:
-      url: https://github.com/concourse/concourse-bosh-deployment
-      ref: v6.5.1
-    excludePaths:
-    - .git/**/*
-
-
-  - path: logsearch-boshrelease/
-    git:
-      url: https://github.com/cloudfoundry-community/logsearch-boshrelease/
-      ref: v209.0.1
-    includePaths:
-    - deployment/**/*
-
-  - path: cf-networking-examples
-    git:
-      url: https://github.com/cloudfoundry/cf-networking-examples
-      ref: 8e3be5faa135746cfd1e05bc618fe18053eab2b5
-    excludePaths:
-    - .git/**/*
-
-  - path: bosh-deployment
-    git:
-      url: https://github.com/cloudfoundry/bosh-deployment
-      ref: 58230887b47539d144c96eb8bf430df8f64a5a25
-    excludePaths:
-    - .git/**/*
-
-  - path: rabbitmq-server
-    git:
-      url: https://github.com/rabbitmq/rabbitmq-server.git
-      ref: 3542f65fcc2085e70403810b3ea2e5711f11e043
-    includePaths:
-    - deps/rabbitmq_prometheus/docker/grafana/dashboards/**/*
-
-  - path: ci-buildpack-cached
-    git:
-      url: https://github.com/orange-cloudfoundry/ci-buildpack-cached
-      ref: origin/concourse-5-support
-    excludePaths:
-    - .git/**/*
 
