@@ -158,8 +158,6 @@ properties:
     description: token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file
 
 
-
-
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)
 #   --bind-address value                       (listener) k3s bind address (default: 0.0.0.0)

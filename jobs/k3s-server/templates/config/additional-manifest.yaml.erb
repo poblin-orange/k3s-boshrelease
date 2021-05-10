@@ -1,5 +1,5 @@
-<% if_p('additional-manifests') do |value| %>
-<% p('additional-manifests').each do |file| %>
+<% if_p('k3s.additional-manifests') do |value| %>
+<% p('k3s.additional-manifests').each do |file| %>
 ---
 <%= file %>
 <% end %>

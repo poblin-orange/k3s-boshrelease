@@ -1,0 +1,29 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+
+
+- path: src 
+  contents:
+
+  # validates checksums automatically from release notes
+
+  - path: github.com/k3s-io/k3s
+    githubRelease:
+      slug: k3s-io/k3s
+      tag: v1.19.10+k3s1
+      disableAutoChecksumValidation: true 
+    includePaths:
+    - "k3s"
+    - "k3s-airgap-images-amd64.tar"
+
+
+  - path: github.com/derailed/k9s
+    githubRelease:
+      slug: derailed/k9s
+      tag: v0.24.9 
+      disableAutoChecksumValidation: true 
+    includePaths:
+    - "k9s_Linux_x86_64.tar.gz"
+
+
