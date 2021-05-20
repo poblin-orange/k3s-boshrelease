@@ -19,4 +19,6 @@ chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
 mkdir -p /var/vcap/store/k3s-server/
 cp -f $JOB_DIR/config/additional-manifest.yaml /var/vcap/store/k3s-server/server/manifests/additional-manifest.yaml
 
+mount --make-rshared /
+
 exit 0
