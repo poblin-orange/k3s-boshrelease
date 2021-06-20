@@ -58,7 +58,8 @@ case $1 in
     --data-dir=/var/vcap/store/k3s-agent \
     --private-registry=/var/vcap/jobs/k3s-agent/config/registries.yaml \
     --resolv-conf=/etc/resolv.conf \
-    --node-external-ip=<%= spec.ip %> \
+    --node-ip=<%= spec.ip %> \
+    --node-external-ip=<%= spec.ip != spec.networks.marshal_dump.values.first.ip ? spec.networks.marshal_dump.values.first.ip : spec.networks.marshal_dump.values.last.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
     --node-label bosh.io/name=<%= spec.name %>  \
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
