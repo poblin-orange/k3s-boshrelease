@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export PATH=$PATH:/var/vcap/packages/k3s
-alias crictl="k3s crictl"
+alias crictl="k3s crictl -c /var/vcap//store/k3s-agent/agent/etc/crictl.yaml"
