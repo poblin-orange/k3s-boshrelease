@@ -112,7 +112,7 @@ properties:
 
 ## args
 
-  k3s.kubelet-arg:
+  k3s.kubelet-args:
     description: (agent/flags) Customized flag for kubelet process
     default: []
 

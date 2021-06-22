@@ -81,6 +81,12 @@ case $1 in
 <% end %>
 <% end %>
 
+<% if_p('k3s.kubelet-args') do |value| %>
+<% p('k3s.kubelet-args').each do |flag| %>
+    export FLAGS="$FLAGS --kubelet-arg=<%= flag %>"
+<% end %>
+<% end %>
+
 
     echo $$ > $PIDFILE
       
