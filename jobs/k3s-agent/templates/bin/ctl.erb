@@ -57,6 +57,8 @@ case $1 in
 <% end %>
 <% end %>
 
+    ulimit -n 1048576    # open files
+    ulimit -u unlimited  # num processes
 
     exec  /var/vcap/packages/k3s/k3s agent \
     -v <%= p('k3s.v') %> \

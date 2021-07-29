@@ -87,9 +87,12 @@ case $1 in
 <% end %>
 <% end %>
 
-
     echo $$ > $PIDFILE
-      
+
+    ulimit -n 1048576    # open files
+    ulimit -u unlimited  # num processes
+
+
     exec  /var/vcap/packages/k3s/k3s server \
     -v <%= p('k3s.v') %> \
     --token=<%= p('k3s.token') %> \
