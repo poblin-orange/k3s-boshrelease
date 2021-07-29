@@ -7,9 +7,9 @@ k3s/k3s:
   object_id: 4ea25234-3273-4589-7db8-2ae63cdfffc3
   sha: sha256:f48a6ec7010dc3fa650b046f140f0b9f85ca690f917ec9612ccb3a180f1fa7b0
 k9s/k9s:
-  size: 50528256
-  object_id: dd46f679-cdc8-455b-5de7-296546059140
-  sha: sha256:c6348e90f23eef119f694ae103c2beee0022cd39306162fbed4ab255fecd2fcc
+  size: 56107008
+  object_id: 9b2cbb59-653a-4de5-60e8-a42829078d87
+  sha: sha256:eb231ee1b420e46b735284d3a3aae9182be3b74ece493c75af934aa11d679003
 kubectl/kubectl:
   size: 40226816
   object_id: d0f0648b-0798-4a00-7500-cd4171a90c02
