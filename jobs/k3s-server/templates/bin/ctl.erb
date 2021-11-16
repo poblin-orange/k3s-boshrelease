@@ -53,7 +53,7 @@ case $1 in
 
 <% if_p('k3s.node-taints') do |value| %>
 <% p('k3s.node-taints').each do |taint| %>
-    export FLAGS="$FLAGS --node-taint <%= taint %>"
+    export FLAGS="$FLAGS --node-taint=<%= taint %>"
 <% end %>
 <% end %>
 
