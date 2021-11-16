@@ -87,6 +87,11 @@ case $1 in
 <% end %>
 <% end %>
 
+#set tls san for api
+<% if_p('k3s.master_vip_api') do |flag| %>
+    export FLAGS="$FLAGS --tls-san=<%= flag %>"
+<% end %>
+
     echo $$ > $PIDFILE
 
     ulimit -n 1048576    # open files
