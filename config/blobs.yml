@@ -8,6 +8,7 @@ k3s/k3s:
   sha: sha256:cc9783c1b55360a750e102e7f76ef40353ac7d25fdb56f2e60e4bfe4c27ea5a9
 k9s/k9s:
   size: 55521280
+  object_id: 1ae53940-e1a9-4c65-620b-245943c3ac34
   sha: sha256:30d224999c38039888f08af4c017730e5fa3e6298b0946ab5d5a75efc59ec891
 kubectl/kubectl:
   size: 40226816
