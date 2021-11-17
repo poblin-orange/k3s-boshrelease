@@ -53,7 +53,7 @@ case $1 in
 
 <% if_p('k3s.node-taints') do |value| %>
 <% p('k3s.node-taints').each do |taint| %>
-    export FLAGS="$FLAGS --node-taint <%= taint %>"
+    export FLAGS="$FLAGS --node-taint=<%= taint %>"
 <% end %>
 <% end %>
 
@@ -85,6 +85,11 @@ case $1 in
 <% p('k3s.kubelet-args').each do |flag| %>
     export FLAGS="$FLAGS --kubelet-arg=<%= flag %>"
 <% end %>
+<% end %>
+
+#set tls san for api
+<% if_p('k3s.master_vip_api') do |flag| %>
+    export FLAGS="$FLAGS --tls-san=<%= flag %>"
 <% end %>
 
     echo $$ > $PIDFILE

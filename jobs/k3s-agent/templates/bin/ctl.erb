@@ -12,8 +12,15 @@ case $1 in
 
     echo $$ > $PIDFILE
 	
-	export servers="<% masters = link('k3s-server') %><% masters.instances.each do |instance| %> --server=https://<%= instance.address %>:6443 <% end %>"
-	
+    #set server ips (or vip)
+    export servers="<% masters = link('k3s-server') %><% masters.instances.each do |instance| %> --server=https://<%= instance.address %>:6443 <% end %>"
+
+
+    #override server if vip
+<% if_p('k3s.master_vip_api') do |flag| %>
+    export servers=" --server=https://<%= flag %>:6443"
+<% end %>
+
 
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
     
@@ -35,7 +42,7 @@ case $1 in
 
 <% if_p('k3s.node-taints') do |value| %>
 <% p('k3s.node-taints').each do |taint| %>
-    export FLAGS="$FLAGS --node-taint <%= taint %>"
+    export FLAGS="$FLAGS --node-taint=<%= taint %>"
 <% end %>
 <% end %>
 

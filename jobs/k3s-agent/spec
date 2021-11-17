@@ -121,3 +121,6 @@ properties:
     description: (agent/flags) Customized flag for kube-proxy process
     default: []
 
+  k3s.master_vip_api:
+    description: externaly defined vip ip for HA k3s (enables multi master instance groups). This is used for public api access, tls-san, and agents to server communication
+
