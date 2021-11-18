@@ -75,6 +75,12 @@ case $1 in
 <% end %>
 <% end %>
 
+<% if_p('k3s.additional_tls_sans') do |value| %>
+<% p('k3s.additional_tls_sans').each do |san| %>
+    export FLAGS="$FLAGS --tls-san=<%= san %>"
+<% end %>
+<% end %>
+
 <% if_p('k3s.kube-cloud-controller-manager-arg') do |value| %>
 <% p('k3s.kube-cloud-controller-manager-arg').each do |flag| %>
     export FLAGS="$FLAGS --kube-cloud-controller-manager-arg=<%= flag %>"

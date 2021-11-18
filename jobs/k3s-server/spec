@@ -160,6 +160,11 @@ properties:
   k3s.master_vip_api:
     description: externaly defined vip ip for HA k3s (enables multi master instance groups). This is used for public api access, tls-san, and agents to server communication
 
+  k3s.additional_tls_sans:
+    description: array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)
+    default: []
+
+
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)
 #   --bind-address value                       (listener) k3s bind address (default: 0.0.0.0)
