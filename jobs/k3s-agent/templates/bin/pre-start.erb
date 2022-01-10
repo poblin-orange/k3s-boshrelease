@@ -1,5 +1,10 @@
 #!/bin/sh
+export JOB_DIR=/var/vcap/jobs/k3s-agent
 /var/vcap/packages/k3s/k3s check-config
+
+# Setup ssh env vars
+${JOB_DIR}/bin/setup-user-env
+
 
 #prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
 mkdir -p /etc

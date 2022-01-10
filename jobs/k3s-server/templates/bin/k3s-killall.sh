@@ -63,6 +63,8 @@ do_unmount() {
 do_unmount '/run/k3s'
 do_unmount '/var/lib/rancher/k3s'
 do_unmount '/var/vcap/data/k3s-agent/kubelet/pods' #bosh fs layout adaptation
+do_unmount '/var/vcap/data/k3s-agent/kubelet/plugins/kubernetes.io/csi' #bosh fs adaptation for csi mount (eg: longhorn)
+
 do_unmount '/run/netns/cni-'
 
 # Delete network interface(s) that match 'master cni0'
