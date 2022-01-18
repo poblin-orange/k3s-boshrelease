@@ -9,7 +9,7 @@ popd
 bosh add-blob src/github.com/derailed/k9s/k9s k9s/k9s
 
 pushd src
-curl -LO https://dl.k8s.io/release/v1.20.7/bin/linux/amd64/kubectl --output ./src/kubectl
+curl -LO https://dl.k8s.io/release/v1.21.8/bin/linux/amd64/kubectl --output ./src/kubectl
 chmod ugo+x kubectl
 popd
 bosh add-blob src/kubectl kubectl/kubectl
