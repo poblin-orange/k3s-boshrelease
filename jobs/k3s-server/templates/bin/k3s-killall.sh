@@ -2,7 +2,7 @@
 [ $(id -u) -eq 0 ] || exec sudo $0 $@
 
 for bin in /var/lib/rancher/k3s/data/**/bin/; do
-    [ -d $bin ] && export PATH=$bin:$PATH
+    [ -d $bin ] && export PATH=$PATH:$bin:$bin/aux
 done
 
 set -x
@@ -45,27 +45,23 @@ getshims() {
 
 killtree $({ set +x; } 2>/dev/null; getshims; set -x)
 
-do_unmount() {
-    { set +x; } 2>/dev/null
-    MOUNTS=
-    while read ignore mount ignore; do
-        MOUNTS="$mount\n$MOUNTS"
-    done </proc/self/mounts
-    MOUNTS=$(printf $MOUNTS | grep "^$1" | sort -r)
-    if [ -n "${MOUNTS}" ]; then
-        set -x
-        umount ${MOUNTS}
-    else
-        set -x
-    fi
+do_unmount_and_remove() {
+    set +x
+    while read -r _ path _; do
+        case "$path" in $1*) echo "$path" ;; esac
+    done < /proc/self/mounts | sort -r | xargs -r -t -n 1 sh -c 'umount "$0" && rm -rf "$0"'
+    set -x
 }
 
-do_unmount '/run/k3s'
-do_unmount '/var/lib/rancher/k3s'
-do_unmount '/var/vcap/data/k3s-agent/kubelet/pods' #bosh fs layout adaptation
-do_unmount '/var/vcap/data/k3s-agent/kubelet/plugins/kubernetes.io/csi' #bosh fs adaptation for csi mount (eg: longhorn)
+do_unmount_and_remove '/run/k3s'
+do_unmount_and_remove '/var/lib/rancher/k3s'
+do_unmount_and_remove '/var/vcap/data/k3s-server/kubelet/pods' #bosh fs layout adaptation
+do_unmount_and_remove '/var/vcap/data/k3s-server/kubelet/plugins'
+do_unmount_and_remove '/var/vcap/data/k3s-server/kubelet/plugins/kubernetes.io/csi' #bosh fs adaptation for csi mount (eg: longhorn)
+do_unmount_and_remove '/run/netns/cni-'
 
-do_unmount '/run/netns/cni-'
+# Remove CNI namespaces
+ip netns show 2>/dev/null | grep cni- | xargs -r -t -n 1 ip netns delete
 
 # Delete network interface(s) that match 'master cni0'
 ip link show 2>/dev/null | grep 'master cni0' | while read ignore iface ignore; do
@@ -74,6 +70,7 @@ ip link show 2>/dev/null | grep 'master cni0' | while read ignore iface ignore; 
 done
 ip link delete cni0
 ip link delete flannel.1
+ip link delete flannel-v6.1
 rm -rf /var/lib/cni/
 iptables-save | grep -v KUBE- | grep -v CNI- | iptables-restore
-
+ip6tables-save | grep -v KUBE- | grep -v CNI- | ip6tables-restore
