@@ -76,10 +76,10 @@ case $1 in
     --node-ip=<%= spec.ip %> \
     --node-external-ip=<%= spec.ip != spec.networks.marshal_dump.values.first.ip ? spec.networks.marshal_dump.values.first.ip : spec.networks.marshal_dump.values.last.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
-    --node-label bosh.io/name=<%= spec.name %>  \
+    --node-label bosh.io/name=<%= spec.name %> \
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
     --node-label bosh.io/index=<%= spec.index %>  \
-    --node-label bosh.io/address=<%= spec.address %>  \
+    --node-label bosh.io/address=<%= spec.ip %>  \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
       $FLAGS \
       $servers \
