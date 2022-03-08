@@ -119,10 +119,10 @@ case $1 in
     --tls-san=<%= spec.networks.send(spec.networks.methods(false).first).dns_record_name %> \
     --node-external-ip=<%= spec.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
-    --node-label bosh.io/name=<%= spec.name %>  \
+    --node-label bosh.io/name=<%= spec.name %> \
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
     --node-label bosh.io/index=<%= spec.index %>  \
-    --node-label bosh.io/address=<%= spec.address %>  \
+    --node-label bosh.io/address=<%= spec.ip %>  \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
       $FLAGS \
       >>  $LOG_DIR/k3s-server.stdout.log \
