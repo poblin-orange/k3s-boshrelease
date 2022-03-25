@@ -4,7 +4,7 @@
 /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml get pods --all-namespaces
 
 #uncordon
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml uncordon <%= spec.ip %>
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml uncordon <%= spec.name %>-<%= spec.index %>
 
 
 #prepare kubeconfig for remote access 

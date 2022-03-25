@@ -1,2 +1,21 @@
 #!/bin/bash
+
+#uncordon if agent drain set
+<% if_p('k3s.drain.kubeconfig') do |kubeconfig| %>
+#create local kubeconfig
+cat - > /var/vcap/data/k3s-agent/drain-kubeconfig.yaml <<EOF
+<%= kubeconfig %>
+EOF
+
+#uncordon
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/data/k3s-agent/drain-kubeconfig.yaml uncordon <%= spec.name %>-<%= spec.index %> \
+>> $JOB_DIR/post-start.log \
+2>> $JOB_DIR/post-start-stderr.log
+
+
+<% end %>
+
+
+echo 0; exit 0
+
 exit 0
