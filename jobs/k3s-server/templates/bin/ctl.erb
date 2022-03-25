@@ -98,6 +98,18 @@ case $1 in
     export FLAGS="$FLAGS --tls-san=<%= flag %>"
 <% end %>
 
+#set external ip flags
+<% if spec.ip != spec.networks.marshal_dump.values.first.ip %>
+#define first ip as external_ip
+export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.first.ip %>"
+<% end %>
+
+<% if spec.ip != spec.networks.marshal_dump.values.last.ip %>
+#define last ip as external_ip
+export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.last.ip %>"
+<% end %>
+
+
     echo $$ > $PIDFILE
 
     ulimit -n 1048576    # open files
@@ -109,7 +121,6 @@ case $1 in
     --token=<%= p('k3s.token') %> \
     --resolv-conf=/etc/resolv.conf \
     --node-ip=<%= spec.ip %> \
-    --node-external-ip=<%= spec.ip != spec.networks.marshal_dump.values.first.ip ? spec.networks.marshal_dump.values.first.ip : spec.networks.marshal_dump.values.last.ip %> \
     --data-dir=/var/vcap/store/k3s-server \
     --default-local-storage-path=/var/vcap/store/k3s-local-storage-path \
     --private-registry=/var/vcap/jobs/k3s-server/config/registries.yaml \
