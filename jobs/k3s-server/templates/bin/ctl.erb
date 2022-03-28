@@ -114,6 +114,10 @@ export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-path=/var/vcap/sys/log/k3s-s
 export FLAGS="$FLAGS --kube-apiserver-arg=audit-policy-file=/var/vcap/jobs/k3s-server/config/audit-policy.yaml"
 <% end %>
 
+<% if_p('k3s.kubelet-config-file') do |value| %>
+export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubelet-config.yaml"
+<% end %>
+
 
     echo $$ > $PIDFILE
 

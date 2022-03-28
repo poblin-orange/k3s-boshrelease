@@ -28,6 +28,7 @@ templates:
   
   config/additional-manifest.yaml.erb: config/additional-manifest.yaml
   config/audit-policy.yaml.erb: config/audit-policy.yaml
+  config/kubelet-config.yaml.erb: config/kubelet-config.yaml
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -162,6 +163,16 @@ properties:
   k3s.additional_tls_sans:
     description: array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)
     default: []
+    
+#kubelet config
+  k3s.kubelet-config-file:
+    description: content of kubelet config file, to enable eg GraceFull Node Shutdown
+    default: |
+      apiVersion: kubelet.config.k8s.io/v1beta1
+      kind: KubeletConfiguration
+      
+      shutdownGracePeriod: 30s
+      shutdownGracePeriodCriticalPods: 10s
 
 #audit policy file
   k3s.audit-policy-file:

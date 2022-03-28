@@ -75,6 +75,11 @@ export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.fi
 export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.last.ip %>"
 <% end %>
 
+<% if_p('k3s.kubelet-config-file') do |value| %>
+export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubelet-config.yaml"
+<% end %>
+
+
 
     ulimit -n 1048576    # open files
     ulimit -u unlimited  # num processes
