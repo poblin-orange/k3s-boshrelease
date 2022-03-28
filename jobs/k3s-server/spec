@@ -27,6 +27,7 @@ templates:
   config/datastore-keyfile.erb: config/datastore-keyfile
   
   config/additional-manifest.yaml.erb: config/additional-manifest.yaml
+  config/audit-policy.yaml.erb: config/audit-policy.yaml
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -161,6 +162,10 @@ properties:
   k3s.additional_tls_sans:
     description: array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)
     default: []
+
+#audit policy file
+  k3s.audit-policy-file:
+    description: if set, defines and activate audit policy for k8s server
 
 
 #done    

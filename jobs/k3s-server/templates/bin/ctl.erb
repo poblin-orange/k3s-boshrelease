@@ -109,6 +109,11 @@ export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.fi
 export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.last.ip %>"
 <% end %>
 
+<% if_p('k3s.audit-policy-file') do |value| %>
+export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-path=/var/vcap/sys/log/k3s-server/audit.log"
+export FLAGS="$FLAGS --kube-apiserver-arg=audit-policy-file=/var/vcap/jobs/k3s-server/config/audit-policy.yaml"
+<% end %>
+
 
     echo $$ > $PIDFILE
 
@@ -138,10 +143,6 @@ export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.la
       $FLAGS \
       >>  $LOG_DIR/k3s-server.stdout.log \
       2>> $LOG_DIR/k3s-server.stderr.log
-
-
-    #TODO --kubelet-arg=" --hostname-override=<%= spec.ip %>" \
-
     ;;
 
   stop)
