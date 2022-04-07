@@ -112,6 +112,12 @@ export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.la
 <% if_p('k3s.audit-policy-file') do |value| %>
 export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-path=/var/vcap/sys/log/k3s-server/audit.log"
 export FLAGS="$FLAGS --kube-apiserver-arg=audit-policy-file=/var/vcap/jobs/k3s-server/config/audit-policy.yaml"
+
+export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-maxage=15"
+export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-maxbackup=5"
+export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-maxsize=10"
+
+
 <% end %>
 
 <% if_p('k3s.kubelet-config-file') do |value| %>

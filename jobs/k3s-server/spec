@@ -186,11 +186,6 @@ properties:
         - "RequestReceived"
       
       rules:
-        # Log pod changes at RequestResponse level
-#        - level: RequestResponse
-#          resources:
-#          - group: ""
-#            resources: ["pods"]
         # Log "pods/log", "pods/status" at Metadata level
         - level: Metadata
           resources:
