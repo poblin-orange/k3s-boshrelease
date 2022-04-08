@@ -27,6 +27,8 @@ templates:
   config/datastore-keyfile.erb: config/datastore-keyfile
   
   config/additional-manifest.yaml.erb: config/additional-manifest.yaml
+  config/audit-policy.yaml.erb: config/audit-policy.yaml
+  config/kubelet-config.yaml.erb: config/kubelet-config.yaml
 
 
 # Documentation https://bosh.io/docs/links.html
@@ -116,7 +118,7 @@ properties:
 
   k3s.drain.timeout:
     description: The length of time to wait before giving up, zero means infinite
-    default: 0
+    default: 90s 
 
   k3s.drain.pod-selector: #Not implemented
     description:  Label selector to filter pods on the node
@@ -161,7 +163,80 @@ properties:
   k3s.additional_tls_sans:
     description: array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)
     default: []
+    
+#kubelet config
+  k3s.kubelet-config-file:
+    description: content of kubelet config file, to enable eg GraceFull Node Shutdown
+    default: |
+      apiVersion: kubelet.config.k8s.io/v1beta1
+      kind: KubeletConfiguration
+      
+      shutdownGracePeriod: 30s
+      shutdownGracePeriodCriticalPods: 10s
 
+#audit policy file
+  k3s.audit-policy-file:
+    description: if set, defines and activate audit policy for k8s server
+    default: |
+      apiVersion: audit.k8s.io/v1 # This is required.
+      kind: Policy
+      
+      # Prevent requests in the RequestReceived stage from generating audit events.
+      omitStages:
+        - "RequestReceived"
+      
+      rules:
+        # Log "pods/log", "pods/status" at Metadata level
+        - level: Metadata
+          resources:
+          - group: ""
+            resources: ["pods/log", "pods/status"]
+        # Exclude logging requests to a configmap called "controller-config"
+        - level: None
+          resources:
+          - group: ""
+            resources: ["configmaps"]
+            resourceNames: ["controller-config"]
+        # Don't log watch requests by the "system:kube-proxy" on endpoints or services
+        - level: None
+          users: ["system:kube-proxy"]
+          verbs: ["watch"]
+          resources:
+          - group: "" # core API group
+            resources: ["endpoints", "services"]
+        # Log deployment changes at RequestResponse level
+        - level: Metadata
+          resources:
+          - group: ""
+            resources: ["deployments"]
+        # Log service changes at metadata level
+        - level: Metadata
+          resources:
+          - group: ""
+            resources: ["services"]
+        # Log the request body of configmap changes in the kube-system namespace.
+        - level: Request
+          resources:
+          - group: "" # core API group
+            resources: ["configmaps"]
+          # You can use an empty string [""] to select resources not associated with a namespace.
+          namespaces: ["kube-system"]
+        # Log configmap and secret changes in all other namespaces at the Metadata level.
+        - level: Metadata
+          resources:
+          - group: "" # core API group
+            resources: ["secrets", "configmaps"]
+        # Log all other resources in core and extensions at the Request level.
+        - level: Request
+          resources:
+          - group: "" # core API group
+          - group: "extensions" # Version of group should NOT be included.
+        # A wild-card rule to log all other requests at the Metadata level.
+        - level: Metadata
+          # Long-running requests like watches that fall under this rule will not
+          # generate an audit event in RequestReceived.
+          omitStages:
+            - "RequestReceived"
 
 #done    
 #   -v value                                   (logging) Number for the log level verbosity (default: 0)
