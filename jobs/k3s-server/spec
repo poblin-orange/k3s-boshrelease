@@ -69,7 +69,7 @@ properties:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
 
 
-  k3s.kubelet-args: 
+  k3s.kubelet-args:
     description: (agent/flags) Customized flag for kubelet process
     default: []
 
