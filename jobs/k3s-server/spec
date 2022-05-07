@@ -79,6 +79,9 @@ properties:
     description: (components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)
     default: []
 
+  k3s.disable-cloud-controller:
+    description: (components) If set,  Disable k3s default cloud controller manager
+
 
 ## additional label and taints (added to k3s and bosh default labels) 
   k3s.node-labels:
