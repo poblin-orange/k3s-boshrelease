@@ -93,6 +93,7 @@ export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-agent/config/kubele
     --node-label bosh.io/address=<%= spec.ip %>  \
     --node-label bosh.io/id=<%= spec.id %>  \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
+    --node-label node-role.kubernetes.io/worker=true \
       $FLAGS \
       $servers \
       >>  $LOG_DIR/k3s-agent.stdout.log \
