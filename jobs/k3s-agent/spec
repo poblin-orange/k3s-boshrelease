@@ -74,6 +74,9 @@ properties:
     description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
     default: []
 
+  k3s.set-provider-id-prefix:
+    description: If set, the default provider id (k3s://<instance>-<index> will be set as kubelet arg as <prefix>://<instance>-<index>
+
 
 ## drain options
   k3s.drain.kubeconfig:

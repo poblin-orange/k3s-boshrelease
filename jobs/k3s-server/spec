@@ -83,6 +83,11 @@ properties:
     description: (components) If set,  Disable k3s default cloud controller manager
 
 
+  k3s.set-provider-id-prefix:
+    description: If set, the default provider id (k3s://<instance>-<index> will be set as kubelet arg as <prefix>://<instance>-<index>
+
+
+
 ## additional label and taints (added to k3s and bosh default labels) 
   k3s.node-labels:
     description: (agent/node) Registering and starting kubelet with set of labels

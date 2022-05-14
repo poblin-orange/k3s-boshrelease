@@ -39,6 +39,11 @@ case $1 in
     #adapt kubelet root dir to match bosh fs
     export FLAGS="$FLAGS --kubelet-arg=root-dir=/var/vcap/data/k3s-server/kubelet"
     
+<% if_p('k3s.set-provider-id-prefix') do |prefix| %>
+    export FLAGS="$FLAGS --kubelet-arg=provider-id=<%= prefix %>://<%= spec.name %>-<%= spec.index %>"
+<% end %>
+    
+    
 <% if_p('k3s.disable') do |value| %>
 <% p('k3s.disable').each do |components| %>
     export FLAGS="$FLAGS --disable <%= components %>"
