@@ -69,7 +69,7 @@ properties:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
 
 
-  k3s.kubelet-args: 
+  k3s.kubelet-args:
     description: (agent/flags) Customized flag for kubelet process
     default: []
 
@@ -78,6 +78,14 @@ properties:
   k3s.disable: 
     description: (components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)
     default: []
+
+  k3s.disable-cloud-controller:
+    description: (components) If set,  Disable k3s default cloud controller manager
+
+
+  k3s.set-provider-id-prefix:
+    description: If set, the default provider id (k3s://<instance>-<index> will be set as kubelet arg as <prefix>://<instance>-<index>
+
 
 
 ## additional label and taints (added to k3s and bosh default labels) 
