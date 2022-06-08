@@ -7,5 +7,8 @@ directories:
   - githubRelease:
       url: https://api.github.com/repos/derailed/k9s/releases/56095809
     path: github.com/derailed/k9s
+  - githubRelease:
+      url: https://api.github.com/repos/containerd/nerdctl/releases/67046917
+    path: github.com/containerd/nerdctl
   path: src
 kind: LockConfig
