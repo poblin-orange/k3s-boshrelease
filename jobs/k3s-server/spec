@@ -158,6 +158,10 @@ properties:
     description: (flags) Customized flag for kube-controller-manager process
     default: []
 
+  k3s.kube-proxy-arg:
+    description: (agent/flags) Customized flag for kube-proxy process
+    default: []
+
   k3s.kube-cloud-controller-manager-arg:
     description:  (flags) Customized flag for kube-cloud-controller-manager process
     default: []
