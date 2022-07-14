@@ -66,6 +66,13 @@ case $1 in
 <% end %>
 <% end %>
 
+<% if_p('k3s.kube-proxy-arg') do |value| %>
+<% p('k3s.kube-proxy-arg').each do |flag| %>
+    export FLAGS="$FLAGS --kube-proxy-arg=<%= flag %>"
+<% end %>
+<% end %>
+
+
 <% if_p('k3s.kube-apiserver-arg') do |value| %>
 <% p('k3s.kube-apiserver-arg').each do |flag| %>
     export FLAGS="$FLAGS --kube-apiserver-arg=<%= flag %>"
@@ -159,6 +166,7 @@ export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubel
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.ip %>  \
     --node-label bosh.io/id=<%= spec.id %>  \
+    --node-label bosh.io/deployment=<%= spec.deployment %> \
     --node-label bosh.io/server=true \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
       $FLAGS \

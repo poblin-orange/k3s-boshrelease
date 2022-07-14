@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - githubRelease:
-      url: https://api.github.com/repos/k3s-io/k3s/releases/65630036
+      url: https://api.github.com/repos/k3s-io/k3s/releases/71411111
     path: github.com/k3s-io/k3s
   - githubRelease:
-      url: https://api.github.com/repos/derailed/k9s/releases/56095809
+      url: https://api.github.com/repos/derailed/k9s/releases/71006850
     path: github.com/derailed/k9s
   - githubRelease:
       url: https://api.github.com/repos/containerd/nerdctl/releases/67046917
