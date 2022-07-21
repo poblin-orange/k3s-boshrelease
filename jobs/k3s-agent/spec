@@ -54,6 +54,8 @@ properties:
   registry.mirrors.tls.ca:
     description: private registry ca
 
+  k3s.node_name_prefix:
+    description: explicitly set k8s node name. If not set, <instance-group-name>-<index> is set automatically. If set, name is <node_name_prefix>-<index> 
 
   k3s.v:
     description: "(logging) Number for the log level verbosity (default: 0)"

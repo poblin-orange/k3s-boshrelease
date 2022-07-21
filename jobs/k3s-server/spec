@@ -74,6 +74,8 @@ properties:
     description: (agent/flags) Customized flag for kubelet process
     default: []
 
+  k3s.node_name_prefix:
+    description: explicitly set k8s node name. If not set, <instance-group-name>-<index> is set automatically. If set, name is <node_name_prefix>-<index> 
 
 #disable defaut k3s components
   k3s.disable: 
