@@ -13,6 +13,11 @@ case $1 in
     
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
     
+<% if_p('k3s.node_name_prefix') do |prefix| %>
+    export K3S_NODE_NAME=<%= prefix %>-<%= spec.index %>
+<% end %>
+
+    
     <% if_p('k3s.datastore-endpoint') do |value| %>
     export K3S_DATASTORE_ENDPOINT=<%= p('k3s.datastore-endpoint') %>
     <% end %>
