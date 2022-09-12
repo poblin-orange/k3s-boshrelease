@@ -18,7 +18,7 @@ popd
 bosh add-blob src/github.com/containerd/nerdctl/nerdctl nerdctl/nerdctl
 
 pushd src
-curl -LO https://dl.k8s.io/release/v1.21.9/bin/linux/amd64/kubectl --output ./src/kubectl
+curl -LO https://dl.k8s.io/release/v1.23.9/bin/linux/amd64/kubectl --output ./src/kubectl
 chmod ugo+x kubectl
 popd
 bosh add-blob src/kubectl kubectl/kubectl
