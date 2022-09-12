@@ -25,7 +25,7 @@
       "addLabels": ["vendir", "github-tags"]
     },
     {
-      "description": "Get distinct branches for each minor, e.g. 1.22.x and 1.23.x. See https://docs.renovatebot.com/presets-default/#separatepatchreleases",
+      "description": "Get distinct branches for each minor, e.g. 1.22.x and 1.23.x. See https://docs.renovatebot.com/presets-default/#separatepatchreleases and https://docs.renovatebot.com/faq/#separate-patch-releases-from-minor-releases",
       "matchPackageNames": [
         "k3s-io/k3s"
       ],
