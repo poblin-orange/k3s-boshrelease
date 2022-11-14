@@ -114,6 +114,13 @@ case $1 in
 <% end %>
 <% end %>
 
+
+<% if_p('k3s.containerd_additional_env_vars') do |value| %>
+<% p('k3s.containerd_additional_env_vars').each do |var| %>
+    export CONTAINERD_<%= var['name'] %>="<%= var['value'] %>"
+<% end %>
+<% end %>
+
 #set tls san for api
 <% if_p('k3s.master_vip_api') do |flag| %>
     export FLAGS="$FLAGS --tls-san=<%= flag %>"

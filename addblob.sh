@@ -12,7 +12,7 @@ popd
 bosh add-blob src/github.com/derailed/k9s/k9s k9s/k9s
 
 pushd src/github.com/containerd/nerdctl/
-tar xfv ./nerdctl-0.20.0-linux-amd64.tar.gz
+tar xfv ./nerdctl-1.0.0-linux-amd64.tar.gz
 popd
 
 bosh add-blob src/github.com/containerd/nerdctl/nerdctl nerdctl/nerdctl
