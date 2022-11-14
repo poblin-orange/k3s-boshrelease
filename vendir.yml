@@ -11,7 +11,7 @@ directories:
   - path: github.com/k3s-io/k3s
     githubRelease:
       slug: k3s-io/k3s
-      tag: v1.23.12+k3s1 
+      tag: v1.23.13+k3s1 
       disableAutoChecksumValidation: true 
     includePaths:
     - "k3s"
@@ -33,5 +33,5 @@ directories:
       tag: v1.0.0
       disableAutoChecksumValidation: true
     includePaths:
-    - "nerdctl-0.23.0-linux-amd64.tar.gz"
+    - "nerdctl-1.0.0-linux-amd64.tar.gz"
 

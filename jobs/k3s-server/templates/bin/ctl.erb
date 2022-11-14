@@ -117,7 +117,7 @@ case $1 in
 
 <% if_p('k3s.containerd_additional_env_vars') do |value| %>
 <% p('k3s.containerd_additional_env_vars').each do |var| %>
-    export CONTAINERD_<%= var.name %>="<%= var.value %>"
+    export CONTAINERD_<%= var['name'] %>="<%= var['value'] %>"
 <% end %>
 <% end %>
 
