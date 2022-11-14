@@ -33,5 +33,5 @@ directories:
       tag: v1.0.0
       disableAutoChecksumValidation: true
     includePaths:
-    - "nerdctl-0.20.0-linux-amd64.tar.gz"
+    - "nerdctl-0.23.0-linux-amd64.tar.gz"
 
