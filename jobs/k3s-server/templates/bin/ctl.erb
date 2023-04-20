@@ -108,12 +108,32 @@ case $1 in
 <% end %>
 <% end %>
 
+
+
 <% if_p('k3s.kubelet-args') do |value| %>
 <% p('k3s.kubelet-args').each do |flag| %>
     export FLAGS="$FLAGS --kubelet-arg=<%= flag %>"
 <% end %>
 <% end %>
 
+<% if_p('k3s.cluster-cidr') do |value| %>
+<% p('k3s.cluster-cidr').each do |flag| %>
+    export FLAGS="$FLAGS --k3s.cluster-cidr=<%= flag %>"
+<% end %>
+<% end %>
+
+<% if_p('k3s.k3s.service-cidr') do |value| %>
+<% p('k3s.k3s.service-cidr').each do |flag| %>
+    export FLAGS="$FLAGS --k3s.service-cidr=<%= flag %>"
+<% end %>
+<% end %>
+
+
+<% if_p('k3s.cluster-dns') do |value| %>
+<% p('k3s.cluster-dns').each do |flag| %>
+    export FLAGS="$FLAGS --cluster-dns=<%= flag %>"
+<% end %>
+<% end %>
 
 <% if_p('k3s.containerd_additional_env_vars') do |value| %>
 <% p('k3s.containerd_additional_env_vars').each do |var| %>
