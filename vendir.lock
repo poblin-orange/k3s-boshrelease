@@ -2,16 +2,16 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - githubRelease:
-      tag: v1.24.9+k3s2
-      url: https://api.github.com/repos/k3s-io/k3s/releases/88647044
+      tag: v1.24.12+k3s1
+      url: https://api.github.com/repos/k3s-io/k3s/releases/97087851
     path: github.com/k3s-io/k3s
   - githubRelease:
-      tag: v0.26.7
-      url: https://api.github.com/repos/derailed/k9s/releases/80222550
+      tag: v0.27.3
+      url: https://api.github.com/repos/derailed/k9s/releases/92146754
     path: github.com/derailed/k9s
   - githubRelease:
-      tag: v1.1.0
-      url: https://api.github.com/repos/containerd/nerdctl/releases/85678650
+      tag: v1.3.1
+      url: https://api.github.com/repos/containerd/nerdctl/releases/99499161
     path: github.com/containerd/nerdctl
   path: src
 kind: LockConfig

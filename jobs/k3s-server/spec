@@ -193,6 +193,15 @@ properties:
     description: additional env vars (name/value map array) to set for containerd (the key will be prefixed with CONTAINERD_, and set in k3s launch context
     default: []
 
+#cidr config
+  k3s.cluster-cidr:
+    description: "(networking) IPv4/IPv6 network CIDRs to use for pod IPs (default: 10.42.0.0/16)"
+  k3s.service-cidr:
+    description: "(networking) IPv4/IPv6 network CIDRs to use for service IPs (default: 10.43.0.0/16)"
+  k3s.cluster-dns:
+    description: "(networking) IPv4 Cluster IP for coredns service. Should be in your service-cidr range (default: 10.43.0.10)"
+
+  
 
 #audit policy file
   k3s.audit-policy-file:

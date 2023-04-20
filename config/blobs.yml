@@ -1,20 +1,20 @@
 k3s-images/k3s-airgap-images-amd64.tar:
   size: 554935808
-  object_id: 6cf125f1-8ac1-4e82-6122-73cba8e54929
-  sha: sha256:7d9008faf4b192e1ab0cce1d177cb615c6e30a777ac6e7ad66b7b15be4d1be5f
+  object_id: 7e020fdb-e9fb-4208-7c70-38b6bc0c5615
+  sha: sha256:356552df2dbe514a54f0558021cb2c98349ee8de5161c91370f46790853e85c6
 k3s/k3s:
-  size: 64569344
-  object_id: 6e551751-5779-4d0b-4fb2-de79653447b5
-  sha: sha256:30e781060532ab5b16b8f8481a70e98f4858c343fd4c73319e2d6a96970689e7
+  size: 66809856
+  object_id: e752bcf9-c117-4d08-66b5-6268f8e3c0db
+  sha: sha256:c57c55a50e470aab4fa915f8da73400de8a6a75a98d91514778ec1a9931c678a
 k9s/k9s:
-  size: 56823808
-  object_id: dad5e912-cba2-466d-4033-cb84fe7cd07b
-  sha: sha256:9a4dbb8e339423b3c7cd587f4abdd20351c01af15c8f1546b99f4557199e2c74
+  size: 58847232
+  object_id: 2947d2a8-89c3-4021-4f25-a1f63bb964ee
+  sha: sha256:09a7bb21255f794501946467a333b99d8fe77f1e4c8a91409f75d80723b80fee
 kubectl/kubectl:
   size: 45752320
-  object_id: c9443d65-04bf-4fd5-4ccc-b159e8cb8ea1
+  object_id: ec5cd13e-68cc-4672-7146-fba9e8a63d8c
   sha: sha256:7e13f33b7379b6c25c3ae055e4389eb3eef168e563f37b5c5f1be672e46b686e
 nerdctl/nerdctl:
-  size: 28536832
-  object_id: e33375dc-caaf-4907-67d6-9ac0e535c0e4
-  sha: sha256:fcba9e27cf5b170415cdcdf60db8a928ce0bf382b1dc888804647a23acdee906
+  size: 24952832
+  object_id: 032b8adb-93bf-44db-424e-1abf54eaeb89
+  sha: sha256:07ce98d7c0975bd6e86fdf36e6826dd99fa183c84f65aab9d4f709659cbf04cc
