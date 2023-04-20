@@ -1,15 +1,20 @@
 k3s-images/k3s-airgap-images-amd64.tar:
   size: 554935808
+  object_id: 7e020fdb-e9fb-4208-7c70-38b6bc0c5615
   sha: sha256:356552df2dbe514a54f0558021cb2c98349ee8de5161c91370f46790853e85c6
 k3s/k3s:
   size: 66809856
+  object_id: e752bcf9-c117-4d08-66b5-6268f8e3c0db
   sha: sha256:c57c55a50e470aab4fa915f8da73400de8a6a75a98d91514778ec1a9931c678a
 k9s/k9s:
   size: 58847232
+  object_id: 2947d2a8-89c3-4021-4f25-a1f63bb964ee
   sha: sha256:09a7bb21255f794501946467a333b99d8fe77f1e4c8a91409f75d80723b80fee
 kubectl/kubectl:
   size: 45752320
+  object_id: ec5cd13e-68cc-4672-7146-fba9e8a63d8c
   sha: sha256:7e13f33b7379b6c25c3ae055e4389eb3eef168e563f37b5c5f1be672e46b686e
 nerdctl/nerdctl:
   size: 24952832
+  object_id: 032b8adb-93bf-44db-424e-1abf54eaeb89
   sha: sha256:07ce98d7c0975bd6e86fdf36e6826dd99fa183c84f65aab9d4f709659cbf04cc
