@@ -181,6 +181,7 @@ export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubel
 
     ulimit -n 1048576    # open files
     ulimit -u unlimited  # num processes
+    mount --make-rshared /
 
 
     exec  /var/vcap/packages/k3s/k3s server \
