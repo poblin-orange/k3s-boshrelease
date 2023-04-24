@@ -69,6 +69,12 @@ case $1 in
     export FLAGS="$FLAGS --disable-network-policy"
 <% end %>
 
+<% if_p('k3s.disable-kube-proxy') do |value| %>
+    export FLAGS="$FLAGS --disable-kube-proxy"
+<% end %>
+
+
+
 
 <% if_p('k3s.node-labels') do |value| %>
 <% p('k3s.node-labels').each do |label| %>
