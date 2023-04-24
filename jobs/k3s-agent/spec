@@ -66,6 +66,10 @@ properties:
   k3s.flannel-backend:
     description: (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'
     default: vxlan
+    
+  k3s.disable-network-policy:
+    description: "(components) Disable k3s default network policy controller"
+
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
     
