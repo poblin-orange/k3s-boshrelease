@@ -2,8 +2,8 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - githubRelease:
-      tag: v1.24.12+k3s1
-      url: https://api.github.com/repos/k3s-io/k3s/releases/97087851
+      tag: v1.24.13+k3s1
+      url: https://api.github.com/repos/k3s-io/k3s/releases/100133123
     path: github.com/k3s-io/k3s
   - githubRelease:
       tag: v0.27.3

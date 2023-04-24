@@ -47,6 +47,7 @@ case $1 in
 <% end %>
 
 
+
 <% if_p('k3s.node-labels') do |value| %>
 <% p('k3s.node-labels').each do |label| %>
     export FLAGS="$FLAGS --node-label <%= label %>"
@@ -99,6 +100,7 @@ export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-agent/config/kubele
 
     ulimit -n 1048576    # open files
     ulimit -u unlimited  # num processes
+    mount --make-rshared /
 
     exec  /var/vcap/packages/k3s/k3s agent \
     -v <%= p('k3s.v') %> \
