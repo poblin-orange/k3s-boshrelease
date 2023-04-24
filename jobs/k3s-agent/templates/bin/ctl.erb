@@ -48,11 +48,6 @@ case $1 in
 
 
 
-<% if_p('k3s.disable-network-policy') do |value| %>
-    export FLAGS="$FLAGS --disable-network-policy"
-<% end %>
-
-
 <% if_p('k3s.node-labels') do |value| %>
 <% p('k3s.node-labels').each do |label| %>
     export FLAGS="$FLAGS --node-label <%= label %>"
