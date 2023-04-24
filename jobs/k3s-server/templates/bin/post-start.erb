@@ -15,3 +15,7 @@ timeout 300 sh -c 'until nc -z <%= vip %> 6443; do sleep 1; done' /var/vcap/pack
 #uncordon
 /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml uncordon <%= spec.name %>-<%= spec.index %>
 
+
+#tempo to wait for kubelet to schedule pods before finishing instance group update
+
+sleep <%= p('k3s.bosh-post-start-delay-seconds') %>

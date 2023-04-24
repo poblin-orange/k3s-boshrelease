@@ -48,11 +48,6 @@ case $1 in
 
 
 
-<% if_p('k3s.flannel-backend') do |value| %>
-    export FLAGS="$FLAGS --flannel-backend=<%= value %>"
-<% end %>
-
-
 <% if_p('k3s.disable-network-policy') do |value| %>
     export FLAGS="$FLAGS --disable-network-policy"
 <% end %>

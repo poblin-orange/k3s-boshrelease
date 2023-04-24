@@ -141,6 +141,12 @@ properties:
   k3s.drain.selector:  #Not implemented
     description: Selector (label query) to filter on
 
+  k3s.bosh-post-start-delay-seconds:
+    description: bosh post start tempo, to let the kubelet start the pods before bosh triggers another node update
+    default: 30
+
+
+
 ## db options
   k3s.datastore-endpoint:
     description: Specify etcd, Mysql, Postgres, or Sqlite (default) data source name
