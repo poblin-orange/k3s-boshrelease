@@ -117,6 +117,9 @@ properties:
   k3s.bosh-post-start-delay-seconds:
     description: bosh post start tempo, to let the kubelet start the pods before bosh triggers another node update
     default: 30
+  k3s.do-not-killall-on-post-stop:
+    description: if set, the bosh post-stop script wont leverage k3s-killall.sh script
+
 
 #token-file
   k3s.token-file-content:
