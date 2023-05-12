@@ -40,7 +40,7 @@ killtree() {
 }
 
 getshims() {
-    lsof | sed -e 's/^[^0-9]*//g; s/  */\t/g' | grep -w 'k3s/data/[^/]*/bin/containerd-shim' | cut -f1 | sort -n -u
+    ps -e -o pid= -o args= | sed -e 's/^ *//; s/\s\s*/\t/;' | grep -w 'k3s/data/[^/]*/bin/containerd-shim' | cut -f1
 }
 
 killtree $({ set +x; } 2>/dev/null; getshims; set -x)
@@ -68,9 +68,9 @@ ip link show 2>/dev/null | grep 'master cni0' | while read ignore iface ignore; 
     iface=${iface%%@*}
     [ -z "$iface" ] || ip link delete $iface
 done
-ip link delete cni0
-ip link delete flannel.1
-ip link delete flannel-v6.1
-rm -rf /var/lib/cni/
-iptables-save | grep -v KUBE- | grep -v CNI- | iptables-restore
-ip6tables-save | grep -v KUBE- | grep -v CNI- | ip6tables-restore
+#ip link delete cni0
+#ip link delete flannel.1
+#ip link delete flannel-v6.1
+#rm -rf /var/lib/cni/
+#iptables-save | grep -v KUBE- | grep -v CNI- | iptables-restore
+#ip6tables-save | grep -v KUBE- | grep -v CNI- | ip6tables-restore
