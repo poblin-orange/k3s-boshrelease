@@ -202,7 +202,6 @@ export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubel
     --write-kubeconfig-mode=755 \
     --tls-san=<%= spec.ip %> \
     --tls-san=<%= spec.networks.send(spec.networks.methods(false).first).dns_record_name %> \
-    --node-external-ip=<%= spec.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
     --node-label bosh.io/name=<%= spec.name %> \
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
