@@ -150,7 +150,7 @@ properties:
 
   k3s.do-not-killall-on-post-stop:
     description: if set, the bosh post-stop script wont leverage k3s-killall.sh script
-    default: true 
+    default: false 
 
 
 
