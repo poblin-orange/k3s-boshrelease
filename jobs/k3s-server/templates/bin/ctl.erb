@@ -13,6 +13,9 @@ case $1 in
     
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
     
+    #get bootstrap server in cluster
+    export BOOTSTRAP_SERVER=<%= link('k3s-server').instances[0].address %>
+    
 <% if_p('k3s.node_name_prefix') do |prefix| %>
     export K3S_NODE_NAME=<%= prefix %>-<%= spec.index %>
 <% end %>
