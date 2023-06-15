@@ -13,6 +13,7 @@ case $1 in
     
     export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
     
+    
 <% if_p('k3s.node_name_prefix') do |prefix| %>
     export K3S_NODE_NAME=<%= prefix %>-<%= spec.index %>
 <% end %>
@@ -178,9 +179,24 @@ export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-maxsize=10"
 
 <% end %>
 
+#get bootstrap server in cluster
+export BOOTSTRAP_SERVER=<%= link('k3s-server').instances[0].address %>
+
+<% if_p('k3s.embedded-ha-etcd') do |value| %>
+
+<% if spec.bootstrap %>
+#bootstrap server: cluster-init
+export FLAGS="$FLAGS --cluster-init"
+<% else %>
+#non bootstrap server: server reference
+export FLAGS="$FLAGS --server=https://$BOOTSTRAP_SERVER:6443"
+<% end %>
+<% end %>
+
 <% if_p('k3s.kubelet-config-file') do |value| %>
 export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-server/config/kubelet-config.yaml"
 <% end %>
+
 
 
     echo $$ > $PIDFILE
