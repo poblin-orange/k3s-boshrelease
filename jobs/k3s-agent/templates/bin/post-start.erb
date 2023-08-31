@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if curl -I "http://127.0.0.1:10248/healthz" 2>&1 | grep -w "200\|301" ; then
+    echo "kubelet is up"
+else
+    echo "kubelet is down, post-start failure"
+fi
+
 #uncordon if agent drain set
 <% if_p('k3s.drain.kubeconfig') do |kubeconfig| %>
 #create local kubeconfig
