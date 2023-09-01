@@ -6,6 +6,12 @@ else
     echo "kubelet is down, post-start failure"
 fi
 
+export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+<% if_p('k3s.node_name_prefix') do |prefix| %>
+    export K3S_NODE_NAME=<%= prefix %>-<%= spec.index %>
+<% end %>
+
+
 #uncordon if agent drain set
 <% if_p('k3s.drain.kubeconfig') do |kubeconfig| %>
 #create local kubeconfig
@@ -13,8 +19,9 @@ cat - > /var/vcap/data/k3s-agent/drain-kubeconfig.yaml <<EOF
 <%= kubeconfig %>
 EOF
 
+
 #uncordon
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/data/k3s-agent/drain-kubeconfig.yaml uncordon <%= spec.name %>-<%= spec.index %> \
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/data/k3s-agent/drain-kubeconfig.yaml uncordon $K3S_NODE_NAME \
 >> $JOB_DIR/post-start.log \
 2>> $JOB_DIR/post-start-stderr.log
 
