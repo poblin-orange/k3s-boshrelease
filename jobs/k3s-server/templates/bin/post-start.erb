@@ -1,5 +1,10 @@
 #!/bin/bash
 
+export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+<% if_p('k3s.node_name_prefix') do |prefix| %>
+    export K3S_NODE_NAME=<%= prefix %>-<%= spec.index %>
+<% end %>
+
 #prepare kubeconfig for remote access 
 cat /var/vcap/store/k3s-server/k3s.yaml |sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'/"<%= spec.ip %>"/ > /var/vcap/store/k3s-server/kubeconfig.yml
 
@@ -13,7 +18,7 @@ cat /var/vcap/store/k3s-server/k3s.yaml |sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}
 timeout 300 sh -c 'until nc -z <%= vip %> 6443; do sleep 1; done' /var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml get pods --all-namespaces
 <% end %>
 #uncordon
-/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml uncordon <%= spec.name %>-<%= spec.index %>
+/var/vcap/packages/kubectl-k3s/kubectl --kubeconfig=/var/vcap/store/k3s-server/kubeconfig.yml uncordon $K3S_NODE_NAME
 
 
 #tempo to wait for kubelet to schedule pods before finishing instance group update
