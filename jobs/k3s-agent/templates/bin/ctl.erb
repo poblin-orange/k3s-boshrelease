@@ -96,7 +96,7 @@ export FLAGS="$FLAGS --node-external-ip=<%= spec.networks.marshal_dump.values.la
 export FLAGS="$FLAGS --kubelet-arg=config=/var/vcap/jobs/k3s-agent/config/kubelet-config.yaml"
 <% end %>
 
-
+export FLAGS="$FLAGS --prefer-bundled-bin"
 
     ulimit -n 1048576    # open files
     ulimit -u unlimited  # num processes
