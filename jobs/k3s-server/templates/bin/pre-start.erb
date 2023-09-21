@@ -17,56 +17,31 @@ chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
 mkdir -p /var/vcap/store/k3s-server/
 cp -f $JOB_DIR/config/additional-manifest.yaml /var/vcap/store/k3s-server/server/manifests/additional-manifest.yaml
 
-# Disable checksum offload for private and k8s virtual interfaces
+# Disable VxLAN harware options on private interface
 # (see: https://github.com/orange-cloudfoundry/paas-templates/issues/2062)
-<% if p('k3s.disable-checksum-offload') %>
-  #--- Disable checksum offload on stemcell private interface
-  disablePrivateInterfaceChecksumOffload() {
-    interface="$1"
-    cat > /etc/systemd/system/${interface}-tx-checksum-off.service << EOF
-[Unit]
-Description=Turn off checksum offload on ${interface}
-After=sys-subsystem-net-devices-${interface}.device
+INTERFACE="$(ip --brief address show | grep "192.168" | awk '{print $1}')"
+<% p('k3s.disable-vxlan-hardware-options').each do |option| %>
+  #--- Disable hardware option on private interface
+  OPTION="<%= option %>"
+  if [ "${OPTION}" != "" ] ; then
+    serviceFile="${INTERFACE}-${OPTION}.service"
+    cat > /etc/systemd/system/${serviceFile} << EOF
+  [Unit]
+  Description=Turn off ${OPTION} on ${INTERFACE}
+  After=sys-subsystem-net-devices-${INTERFACE}.device
 
-[Install]
-WantedBy=sys-subsystem-net-devices-${interface}.device
+  [Install]
+  WantedBy=sys-subsystem-net-devices-${INTERFACE}.device
 
-[Service]
-Type=oneshot
-ExecStart=/sbin/ethtool -K ${interface} tx-checksum-ip-generic off
-EOF
+  [Service]
+  Type=oneshot
+  ExecStart=/sbin/ethtool -K ${INTERFACE} ${OPTION} off
+  EOF
 
-    #--- Run service once
-    /usr/bin/systemctl enable ${interface}-tx-checksum-off.service
-    /usr/bin/systemctl start ${interface}-tx-checksum-off.service
-  }
-
-  #--- Disable checksum offload on k8s virtual interfaces
-  disablek8sInterfaceChecksumOffload() {
-    interface="$1"
-    cat > /etc/systemd/system/${interface}-tx-checksum-off.service << EOF
-[Unit]
-Description=Turn off checksum offload on ${interface}
-After=sys-devices-virtual-net-${interface}.device
-
-[Install]
-WantedBy=sys-devices-virtual-net-${interface}.device
-
-[Service]
-Type=oneshot
-ExecStart=/sbin/ethtool -K ${interface} tx-checksum-ip-generic off
-EOF
-
-    #--- Run service once
-    /usr/bin/systemctl enable ${interface}-tx-checksum-off.service
-    /usr/bin/systemctl start ${interface}-tx-checksum-off.service
-  }
-
-  #--- Activate services to disable checksum offload
-  privateInterface="$(ip --brief address show | grep "192.168" | awk '{print $1}')"
-  disablePrivateInterfaceChecksumOffload "${privateInterface}"
-  disablek8sInterfaceChecksumOffload "flannel.1"
-  disablek8sInterfaceChecksumOffload "cni0"
+    #--- Start service
+    /usr/bin/systemctl enable ${serviceFile}
+    /usr/bin/systemctl start ${serviceFile}
+  fi
 <% end %>
 
 exit 0

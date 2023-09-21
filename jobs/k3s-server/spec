@@ -83,10 +83,12 @@ properties:
   k3s.node_name_prefix:
     description: explicitly set k8s node name. If not set, <instance-group-name>-<index> is set automatically. If set, name is <node_name_prefix>-<index> 
 
-# Disable checksum offload
-  k3s.disable-checksum-offload:
-    description: Disable checksum offload on private and k8s interfaces
-    default: true
+# Disable harware options on VxLAN interface
+  k3s.disable-vxlan-hardware-options:
+    description: Disable VxLAN harware options on private interface
+    default:
+      - tx-checksum-ip-generic
+      - tx-udp_tnl-segmentation
 
 # Disable defaut k3s components
   k3s.disable: 

@@ -65,10 +65,12 @@ properties:
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
 
-# Disable checksum offload
-  k3s.disable-checksum-offload:
-    description: Disable checksum offload on private and k8s interfaces
-    default: true
+# Disable harware options on VxLAN interface
+  k3s.disable-vxlan-hardware-options:
+    description: Disable VxLAN harware options on private interface
+    default:
+      - tx-checksum-ip-generic
+      - tx-udp_tnl-segmentation
 
 # additional label and taints (added to k3s and bosh default labels)
   k3s.node-labels:
