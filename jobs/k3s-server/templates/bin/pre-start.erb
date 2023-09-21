@@ -1,22 +1,72 @@
-#!/bin/sh
+#!/bin/bash
 export JOB_DIR=/var/vcap/jobs/k3s-server
-
 /var/vcap/packages/k3s/k3s check-config
 
 # Setup ssh env vars
 ${JOB_DIR}/bin/setup-user-env
 
-#prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
+# Prepare a persistent directory so /etc/rancher/node paswword file is kept on bosh recreate
 mkdir -p /etc
 mkdir -p /var/vcap/store/k3s-node/etc/rancher
 ln -sf  /var/vcap/store/k3s-node/etc/rancher /etc/rancher
 
-#fix cert chmod
+# Fix cert chmod
 chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
 
-#copy additional manifest file
-
+# Copy additional manifest file
 mkdir -p /var/vcap/store/k3s-server/
 cp -f $JOB_DIR/config/additional-manifest.yaml /var/vcap/store/k3s-server/server/manifests/additional-manifest.yaml
+
+# Disable checksum offload for private and k8s virtual interfaces
+# (see: https://github.com/orange-cloudfoundry/paas-templates/issues/2062)
+<% if p('k3s.disable-checksum-offload') %>
+  #--- Disable checksum offload on stemcell private interface
+  disablePrivateInterfaceChecksumOffload() {
+    interface="$1"
+    cat > /etc/systemd/system/${interface}-tx-checksum-off.service << EOF
+[Unit]
+Description=Turn off checksum offload on ${interface}
+After=sys-subsystem-net-devices-${interface}.device
+
+[Install]
+WantedBy=sys-subsystem-net-devices-${interface}.device
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ethtool -K ${interface} tx-checksum-ip-generic off
+EOF
+
+    #--- Run service once
+    /usr/bin/systemctl enable ${interface}-tx-checksum-off.service
+    /usr/bin/systemctl start ${interface}-tx-checksum-off.service
+  }
+
+  #--- Disable checksum offload on k8s virtual interfaces
+  disablek8sInterfaceChecksumOffload() {
+    interface="$1"
+    cat > /etc/systemd/system/${interface}-tx-checksum-off.service << EOF
+[Unit]
+Description=Turn off checksum offload on ${interface}
+After=sys-devices-virtual-net-${interface}.device
+
+[Install]
+WantedBy=sys-devices-virtual-net-${interface}.device
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/ethtool -K ${interface} tx-checksum-ip-generic off
+EOF
+
+    #--- Run service once
+    /usr/bin/systemctl enable ${interface}-tx-checksum-off.service
+    /usr/bin/systemctl start ${interface}-tx-checksum-off.service
+  }
+
+  #--- Activate services to disable checksum offload
+  privateInterface="$(ip --brief address show | grep "192.168" | awk '{print $1}')"
+  disablePrivateInterfaceChecksumOffload "${privateInterface}"
+  disablek8sInterfaceChecksumOffload "flannel.1"
+  disablek8sInterfaceChecksumOffload "cni0"
+<% end %>
 
 exit 0

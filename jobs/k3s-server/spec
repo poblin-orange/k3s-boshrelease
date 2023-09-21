@@ -31,7 +31,6 @@ templates:
   config/audit-policy.yaml.erb: config/audit-policy.yaml
   config/kubelet-config.yaml.erb: config/kubelet-config.yaml
 
-
 # Documentation https://bosh.io/docs/links.html
 # Tutorial      https://gist.github.com/Amit-PivotalLabs/c39528248b8cdc4ba8e347f8aa68abb6
 consumes:
@@ -44,7 +43,6 @@ provides:
   type: k3s-server
 
 properties:
-
   containerd_registry:
     description: containerd registry configuration
 
@@ -60,9 +58,11 @@ properties:
   k3s.v:
     description: "(logging) Number for the log level verbosity (default: 0)"
     default: 0
+
   k3s.bind-address value:
     description: "(listener) k3s bind address (default: 0.0.0.0)"
     default: 0.0.0.0
+
   k3s.flannel-backend:
     description: (networking) One of 'none', 'vxlan', 'ipsec', or 'wireguard'
     default: vxlan
@@ -76,7 +76,6 @@ properties:
   k3s.token:
     description: (cluster) Shared secret used to join a server or agent to a cluster [$K3S_TOKEN]
 
-
   k3s.kubelet-args:
     description: (agent/flags) Customized flag for kubelet process
     default: []
@@ -84,7 +83,12 @@ properties:
   k3s.node_name_prefix:
     description: explicitly set k8s node name. If not set, <instance-group-name>-<index> is set automatically. If set, name is <node_name_prefix>-<index> 
 
-#disable defaut k3s components
+# Disable checksum offload
+  k3s.disable-checksum-offload:
+    description: Disable checksum offload on private and k8s interfaces
+    default: true
+
+# Disable defaut k3s components
   k3s.disable: 
     description: (components) Do not deploy packaged components and delete any deployed components (valid itemms are coredns, servicelb, traefik, local-storage, metrics-server)
     default: []
@@ -92,13 +96,10 @@ properties:
   k3s.disable-cloud-controller:
     description: (components) If set,  Disable k3s default cloud controller manager
 
-
   k3s.set-provider-id-prefix:
     description: If set, the default provider id (k3s://<instance>-<index> will be set as kubelet arg as <prefix>://<instance>-<index>
 
-
-
-## additional label and taints (added to k3s and bosh default labels) 
+# Additional label and taints (added to k3s and bosh default labels) 
   k3s.node-labels:
     description: (agent/node) Registering and starting kubelet with set of labels
     default: []
@@ -106,14 +107,12 @@ properties:
     description: (agent/node) Registering kubelet with set of taints.format is key=value:Effect)
     default: []
 
-## additional manifests to apply
+# Additional manifests to apply
   k3s.additional-manifests:
     default: []
     description: array of additionnel yaml to apply at k3s start
 
-
 ## drain options
-
   k3s.drain.delete-emptydir-data:
     description:  continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).
     default: true
@@ -152,22 +151,23 @@ properties:
     description: if set, the bosh post-stop script wont leverage k3s-killall.sh script
     default: false 
 
-
-
-## db options
+# db options
   k3s.embedded-ha-etcd:
     description: if set, use embedded etcd in ha mode. requires an odd number of servers, overrides datastore-endpoints
-    
+
   k3s.datastore-endpoint:
     description: Specify etcd, Mysql, Postgres, or Sqlite (default) data source name
+
   k3s.datastore-cafile:
     description: TLS Certificate Authority file used to secure datastore backend communication
+
   k3s.datastore-certfile:
     description: TLS certification file used to secure datastore backend communication
+
   k3s.datastore-keyfile:
     description: TLS key file used to secure datastore backend communication
 
-## args
+# args
   k3s.kube-apiserver-arg:
     description: (flags) Customized flag for kube-apiserver process
     default: []
@@ -188,7 +188,7 @@ properties:
     description:  (flags) Customized flag for kube-cloud-controller-manager process
     default: []
 
-#token-file
+# token-file
   k3s.token-file-content:
     description: token-file content. see https://kubernetes.io/docs/reference/access-authn-authz/authentication/#static-token-file
 
@@ -199,13 +199,12 @@ properties:
     description: array of additionnal tls-san for k8s api (added to default, ip, bosh-dns alias, or master vip if set)
     default: []
     
-#kubelet config
+# kubelet config
   k3s.kubelet-config-file:
     description: content of kubelet config file, to enable eg GraceFull Node Shutdown
     default: |
       apiVersion: kubelet.config.k8s.io/v1beta1
       kind: KubeletConfiguration
-      
       shutdownGracePeriod: 30s
       shutdownGracePeriodCriticalPods: 10s
 
@@ -213,7 +212,7 @@ properties:
     description: additional env vars (name/value map array) to set for containerd (the key will be prefixed with CONTAINERD_, and set in k3s launch context
     default: []
 
-#cidr config
+# cidr config
   k3s.cluster-cidr:
     description: "(networking) IPv4/IPv6 network CIDRs to use for pod IPs (default: 10.42.0.0/16)"
   k3s.service-cidr:
@@ -221,9 +220,7 @@ properties:
   k3s.cluster-dns:
     description: "(networking) IPv4 Cluster IP for coredns service. Should be in your service-cidr range (default: 10.43.0.10)"
 
-  
-
-#audit policy file
+# audit policy file
   k3s.audit-policy-file:
     description: if set, defines and activate audit policy for k8s server
     default: |
@@ -310,4 +307,3 @@ properties:
 #   --docker                                   (agent/runtime) Use docker instead of containerd
 #   --node-ip value, -i value                  (agent/networking) IP address to advertise for node
 #   --node-external-ip value                   (agent/networking) External IP address to advertise for node
-
