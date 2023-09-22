@@ -17,6 +17,7 @@ chmod go-r /var/vcap/jobs/k3s-server/config/datastore-*
 mkdir -p /var/vcap/store/k3s-server/
 cp -f ${JOB_DIR}/config/additional-manifest.yaml /var/vcap/store/k3s-server/server/manifests/additional-manifest.yaml
 
+set -e
 # Set overlay IP
 OVERLAY_IP="<%= spec.ip %>"
 <% if spec.ip != spec.networks.marshal_dump.values.first.ip %>
@@ -29,12 +30,16 @@ OVERLAY_IP="<%= spec.ip %>"
 # Disable VxLAN harware options on private interface
 # (see: https://github.com/orange-cloudfoundry/paas-templates/issues/2062)
 INTERFACE="$(ip --brief address show | grep "${OVERLAY_IP}" | awk '{print $1}')"
+
+#clean previous patch services
+! rm -f /etc/systemd/system/ethtool-patch-*.service
+
 <% p('k3s.disable-vxlan-hardware-options').each do |option| %>
  #--- Disable hardware option on private interface
 OPTION="<%= option %>"
 if [ "${OPTION}" != "" ] ; then
-  serviceFile="${INTERFACE}-${OPTION}.service"
-  cat > /etc/systemd/system/${serviceFile} << EOF
+serviceFile="ethtool-patch-${INTERFACE}-${OPTION}.service"
+cat > /etc/systemd/system/${serviceFile} << EOF
 [Unit]
 Description=Turn off ${OPTION} on ${INTERFACE}
 After=sys-subsystem-net-devices-${INTERFACE}.device
