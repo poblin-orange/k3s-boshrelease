@@ -69,8 +69,10 @@ properties:
   k3s.disable-vxlan-hardware-options:
     description: Disable VxLAN harware options on private interface
     default:
-      - tx-checksum-ip-generic
       - tx-udp_tnl-segmentation
+      - tx-udp_tnl-csum-segmentation
+#     - tx-checksum-ip-generic
+
 
 # additional label and taints (added to k3s and bosh default labels)
   k3s.node-labels:

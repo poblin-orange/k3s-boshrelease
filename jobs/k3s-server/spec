@@ -89,7 +89,7 @@ properties:
     default:
       - tx-udp_tnl-segmentation
       - tx-udp_tnl-csum-segmentation
-      - tx-checksum-ip-generic
+#     - tx-checksum-ip-generic
 
 # Disable defaut k3s components
   k3s.disable: 
