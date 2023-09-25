@@ -179,6 +179,12 @@ export FLAGS="$FLAGS --kube-apiserver-arg=audit-log-maxsize=10"
 
 <% end %>
 
+
+
+
+export FLAGS="$FLAGS --prefer-bundled-bin"
+
+
 #get bootstrap server in cluster
 export BOOTSTRAP_SERVER=<%= link('k3s-server').instances[0].address %>
 
